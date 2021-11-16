@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SimpleNote</string>
+    <string name="save_button">Save</string>
+    <string name="header_hint">TITLE</string>
+</resources>
