@@ -2,4 +2,7 @@
     <string name="app_name">SimpleNote</string>
     <string name="save_button">Save</string>
     <string name="header_hint">TITLE</string>
+    <string name="successful_save">Saved successfully!</string>
+    <string name="saved_empty_content">Save failed! Content is empty.</string>
+    <string name="save_failed">Save failed!</string>
 </resources>

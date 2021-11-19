@@ -1,18 +1,25 @@
 package zar1official.simplenote.presenter
 import zar1official.simplenote.model.Note
+import zar1official.simplenote.view.NoteView
 
-class MainActivityPresenter {
+class MainActivityPresenter(val view: NoteView) {
     val note = Note()
 
-    fun updateTitle(title: String){
+    private fun updateTitle(title: String){
         note.title = title
     }
 
-    fun updateText(text: String){
+    private fun updateText(text: String){
         note.text= text
     }
 
-    interface View{
-        fun saveData()
+    fun tryToSaveNote(title: String, text: String){
+        if (title.isNotEmpty() && text.isNotEmpty()){
+            updateTitle(title)
+            updateText(text)
+            view.saveSuccess()
+        }else{
+            view.saveEmptyContent()
+        }
     }
 }
