@@ -1,4 +1,4 @@
-package zar1official.simplenote.view
+package zar1official.simplenote.base
 
 interface NoteView {
     fun saveSuccess()
