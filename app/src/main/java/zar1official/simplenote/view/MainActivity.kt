@@ -6,6 +6,7 @@ import com.google.android.material.snackbar.Snackbar
 import zar1official.simplenote.R
 import zar1official.simplenote.databinding.ActivityMainBinding
 import zar1official.simplenote.presenter.MainActivityPresenter
+import zar1official.simplenote.base.NoteView
 
 class MainActivity : AppCompatActivity(), NoteView {
     lateinit var binding: ActivityMainBinding

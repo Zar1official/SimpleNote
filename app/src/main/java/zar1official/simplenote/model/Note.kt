@@ -1,5 +1,5 @@
 package zar1official.simplenote.model
 
-class Note(var title: String, var text: String){
-    constructor() : this("", "")
-}
+import zar1official.simplenote.base.NoteModel
+
+class Note(var title: String = "", var text: String = "") : NoteModel
