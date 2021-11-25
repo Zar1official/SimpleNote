@@ -24,4 +24,12 @@ class MainActivityPresenter(val view: NoteView) : NotePresenter {
             view.saveEmptyContent()
         }
     }
+
+    override fun tryToShareNote() {
+        if (!note.isEmpty()) {
+            view.shareNote(note.title, note.text)
+        } else {
+            view.shareFailed()
+        }
+    }
 }

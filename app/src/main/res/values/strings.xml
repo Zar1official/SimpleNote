@@ -1,8 +1,19 @@
 <resources>
     <string name="app_name">SimpleNote</string>
-    <string name="save_button">Save</string>
+    <!--    hints-->
     <string name="header_hint">TITLE</string>
+    <!--    buttons-->
+    <string name="save_button">Save</string>
+    <!--    messages-->
     <string name="successful_save">Saved successfully!</string>
     <string name="saved_empty_content">Save failed! Content is empty.</string>
     <string name="save_failed">Save failed!</string>
+    <string name="share_failed">Share failed! Note is not saved.</string>
+
+    <!--    menu-->
+    <string name="share_option">Share</string>
+    <string name="about_option">About</string>
+
+    <string name="about_description">SimpleNote 1.0\nCopyright © 2021 zar1official</string>
 </resources>
+

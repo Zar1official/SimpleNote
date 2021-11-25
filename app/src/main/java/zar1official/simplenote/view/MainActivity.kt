@@ -1,6 +1,9 @@
 package zar1official.simplenote.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import zar1official.simplenote.R
@@ -38,7 +41,39 @@ class MainActivity : AppCompatActivity(), NoteView {
         showMessage(getString(R.string.saved_empty_content))
     }
 
+    override fun shareNote(title: String, text: String) {
+        startActivity(Intent(Intent.ACTION_SEND).apply {
+            type = "plain/text"
+            putExtra(Intent.EXTRA_TEXT, "$title\n$text")
+        })
+    }
+
+    override fun shareFailed() {
+        showMessage(getString(R.string.share_failed))
+    }
+
+    override fun openAbout() {
+        startActivity(Intent(this, AboutActivity::class.java))
+    }
+
     private fun showMessage(message: String) {
         Snackbar.make(this, binding.root, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.top_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.share -> {
+                presenter.tryToShareNote()
+            }
+            R.id.about -> {
+                openAbout()
+            }
+        }
+        return true
     }
 }
