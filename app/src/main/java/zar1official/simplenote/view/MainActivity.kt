@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity(), NoteView {
                 presenter.tryToShareNote()
             }
             R.id.about -> {
-                openAbout()
+                presenter.tryToOpenAbout()
             }
         }
         return true

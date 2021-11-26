@@ -32,4 +32,8 @@ class MainActivityPresenter(val view: NoteView) : NotePresenter {
             view.shareFailed()
         }
     }
+
+    override fun tryToOpenAbout() {
+        view.openAbout()
+    }
 }
