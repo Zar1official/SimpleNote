@@ -15,7 +15,7 @@ class MainActivityPresenter(val view: NoteView) : NotePresenter {
         note.text = text
     }
 
-    override fun tryToSaveNote(title: String, text: String) {
+    override fun onAttemptSaveNote(title: String, text: String) {
         if (title.isNotEmpty() && text.isNotEmpty()) {
             updateTitle(title)
             updateText(text)
@@ -25,7 +25,7 @@ class MainActivityPresenter(val view: NoteView) : NotePresenter {
         }
     }
 
-    override fun tryToShareNote() {
+    override fun onAttemptShareNote() {
         if (!note.isEmpty()) {
             view.shareNote(note.title, note.text)
         } else {
@@ -33,7 +33,7 @@ class MainActivityPresenter(val view: NoteView) : NotePresenter {
         }
     }
 
-    override fun tryToOpenAbout() {
+    override fun onAttemptOpenAbout() {
         view.openAbout()
     }
 }

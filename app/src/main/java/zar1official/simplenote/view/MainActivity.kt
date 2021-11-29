@@ -7,9 +7,9 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import zar1official.simplenote.R
+import zar1official.simplenote.base.NoteView
 import zar1official.simplenote.databinding.ActivityMainBinding
 import zar1official.simplenote.presenter.MainActivityPresenter
-import zar1official.simplenote.base.NoteView
 
 class MainActivity : AppCompatActivity(), NoteView {
     lateinit var binding: ActivityMainBinding
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), NoteView {
         presenter = MainActivityPresenter(this)
 
         binding.saveButton.setOnClickListener {
-            presenter.tryToSaveNote(
+            presenter.onAttemptSaveNote(
                 binding.titleInput.text.toString(),
                 binding.textInput.text.toString()
             )
@@ -68,10 +68,10 @@ class MainActivity : AppCompatActivity(), NoteView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.share -> {
-                presenter.tryToShareNote()
+                presenter.onAttemptShareNote()
             }
             R.id.about -> {
-                presenter.tryToOpenAbout()
+                presenter.onAttemptOpenAbout()
             }
         }
         return true
