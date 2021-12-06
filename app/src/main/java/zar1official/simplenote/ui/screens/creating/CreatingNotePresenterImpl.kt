@@ -1,10 +1,12 @@
-package zar1official.simplenote.presenter
+package zar1official.simplenote.ui.screens.creating
 
-import zar1official.simplenote.base.NotePresenter
-import zar1official.simplenote.base.NoteView
 import zar1official.simplenote.model.Note
+import zar1official.simplenote.ui.screens.creating.base.CreatingNotePresenter
+import zar1official.simplenote.ui.screens.creating.base.CreatingNoteView
+import java.util.*
 
-class MainActivityPresenter(val view: NoteView) : NotePresenter {
+class CreatingNotePresenterImpl(val view: CreatingNoteView) :
+    CreatingNotePresenter {
     val note = Note()
 
     private fun updateTitle(title: String) {
@@ -15,10 +17,15 @@ class MainActivityPresenter(val view: NoteView) : NotePresenter {
         note.text = text
     }
 
+    private fun updateDate() {
+        note.date = Calendar.getInstance().timeInMillis
+    }
+
     override fun onAttemptSaveNote(title: String, text: String) {
         if (title.isNotEmpty() && text.isNotEmpty()) {
             updateTitle(title)
             updateText(text)
+            updateDate()
             view.saveSuccess()
         } else {
             view.saveEmptyContent()
@@ -33,7 +40,4 @@ class MainActivityPresenter(val view: NoteView) : NotePresenter {
         }
     }
 
-    override fun onAttemptOpenAbout() {
-        view.openAbout()
-    }
 }

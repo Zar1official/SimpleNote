@@ -1,10 +1,10 @@
-package zar1official.simplenote.base
+package zar1official.simplenote.ui.screens.creating.base
 
-interface NoteView {
+interface CreatingNoteView {
     fun saveSuccess()
     fun saveFailed()
     fun saveEmptyContent()
     fun shareNote(title: String, text: String)
     fun shareFailed()
-    fun openAbout()
 }
+

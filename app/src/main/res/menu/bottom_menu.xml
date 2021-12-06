@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/creatingNoteFragment"
+        android:icon="@drawable/ic_create_note"
+        android:title="@string/new_note" />
+
+    <item
+        android:id="@+id/notesListFragment"
+        android:icon="@drawable/ic_notes_list"
+        android:title="@string/notes" />
+
+    <item
+        android:id="@+id/aboutFragment"
+        android:icon="@drawable/ic_about"
+        android:title="@string/about" />
+</menu>

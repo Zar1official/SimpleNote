@@ -9,11 +9,16 @@
     <string name="saved_empty_content">Save failed! Content is empty.</string>
     <string name="save_failed">Save failed!</string>
     <string name="share_failed">Share failed! Note is not saved.</string>
+    <string name="load_notes_failed">Loading notes failed!</string>
 
-    <!--    menu-->
+    <!--    top menu-->
     <string name="share_option">Share</string>
-    <string name="about_option">About</string>
+
+    <!--    bottom menu-->
 
     <string name="about_description">SimpleNote 1.0\nCopyright © 2021 zar1official</string>
+    <string name="notes">Notes</string>
+    <string name="new_note">New</string>
+    <string name="about">About</string>
 </resources>
 

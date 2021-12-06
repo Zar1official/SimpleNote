@@ -8,12 +8,4 @@
         app:showAsAction="ifRoom"
         android:orderInCategory="1">
     </item>
-
-    <item
-        android:id="@+id/about"
-        android:title="@string/share_option"
-        android:icon="@drawable/ic_about"
-        app:showAsAction="ifRoom"
-        android:orderInCategory="2">
-    </item>
 </menu>

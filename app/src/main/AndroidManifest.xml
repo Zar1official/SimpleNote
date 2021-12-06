@@ -10,10 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleNote">
         <activity
-            android:name=".view.AboutActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.MainActivity"
+            android:name="zar1official.simplenote.ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
