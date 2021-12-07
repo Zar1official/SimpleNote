@@ -3,7 +3,7 @@ package zar1official.simplenote.model.repositories
 import zar1official.simplenote.model.Note
 import zar1official.simplenote.model.repositories.base.NoteRepository
 
-object NoteRepositoryImpl : NoteRepository {
+class NoteRepositoryImpl : NoteRepository {
 
     val storage = listOf(
         Note(

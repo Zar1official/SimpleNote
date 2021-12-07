@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import zar1official.simplenote.R
 import zar1official.simplenote.databinding.ActivityMainBinding
+import zar1official.simplenote.ui.main.base.MainPresenter
 import zar1official.simplenote.ui.main.base.MainView
 import zar1official.simplenote.ui.screens.about.AboutFragment
 import zar1official.simplenote.ui.screens.creating.CreatingNoteFragment
@@ -12,7 +13,7 @@ import zar1official.simplenote.ui.screens.notes.NotesListFragment
 
 class MainActivity : AppCompatActivity(), MainView {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var presenter: MainPresenterImpl
+    private lateinit var presenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

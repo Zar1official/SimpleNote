@@ -8,10 +8,12 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import zar1official.simplenote.databinding.FragmentNoteInfoBinding
 import zar1official.simplenote.model.Note
+import zar1official.simplenote.ui.screens.notes.info.base.NoteInfoPresenter
 import zar1official.simplenote.ui.screens.notes.info.base.NoteInfoView
 import zar1official.simplenote.utils.DateTimeUtils
 
 class NoteInfoFragment : Fragment(), NoteInfoView {
+    lateinit var presenter: NoteInfoPresenter
     private var _binding: FragmentNoteInfoBinding? = null
     private val binding get() = _binding!!
     private var note: Note? = null
@@ -33,10 +35,13 @@ class NoteInfoFragment : Fragment(), NoteInfoView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.apply {
-            noteTitleInfo.text = note!!.title
-            noteContentInfo.text = note!!.text
-            noteDateInfo.text = DateTimeUtils.millisToDateTime(note!!.date)
+        presenter = NoteInfoPresenterImpl(this)
+        binding.run {
+            note?.let {
+                noteTitleInfo.text = it.title
+                noteContentInfo.text = it.text
+                noteDateInfo.text = DateTimeUtils.millisToDateTime(it.date)
+            }
         }
     }
 

@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import zar1official.simplenote.R
 import zar1official.simplenote.databinding.FragmentNotesListBinding
 import zar1official.simplenote.model.Note
+import zar1official.simplenote.model.repositories.NoteRepositoryImpl
 import zar1official.simplenote.ui.screens.notes.adapter.NotesAdapter
 import zar1official.simplenote.ui.screens.notes.base.NoteListPresenter
 import zar1official.simplenote.ui.screens.notes.base.NoteListView
@@ -31,13 +32,13 @@ class NotesListFragment : Fragment(), NoteListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = NoteListPresenterImpl(this@NotesListFragment)
+        presenter = NoteListPresenterImpl(this@NotesListFragment, NoteRepositoryImpl())
         presenter.onLoadData()
     }
 
     companion object {
         private const val FRAGMENT_TAG = "NotesListFragment"
-
+        private const val SPAN_COUNT = 2
         @JvmStatic
         fun newInstance() = NotesListFragment()
     }
@@ -51,8 +52,9 @@ class NotesListFragment : Fragment(), NoteListView {
         val noteAdapter = NotesAdapter(data) {
             presenter.onAttemptOpenNote(it)
         }
-        binding.notesRcView.apply {
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        binding.notesRcView.run {
+            layoutManager =
+                StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL)
             adapter = noteAdapter
         }
     }

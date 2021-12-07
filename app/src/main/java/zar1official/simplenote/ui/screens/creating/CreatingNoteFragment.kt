@@ -7,11 +7,13 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import zar1official.simplenote.R
 import zar1official.simplenote.databinding.FragmentCreatingNoteBinding
+import zar1official.simplenote.model.Note
+import zar1official.simplenote.ui.screens.creating.base.CreatingNotePresenter
 import zar1official.simplenote.ui.screens.creating.base.CreatingNoteView
 
 class CreatingNoteFragment : Fragment(), CreatingNoteView {
 
-    private lateinit var presenter: CreatingNotePresenterImpl
+    private lateinit var presenter: CreatingNotePresenter
     private var _binding: FragmentCreatingNoteBinding? = null
     private val binding get() = _binding!!
 
@@ -25,7 +27,7 @@ class CreatingNoteFragment : Fragment(), CreatingNoteView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = CreatingNotePresenterImpl(this)
+        presenter = CreatingNotePresenterImpl(this, Note())
         binding.saveButton.setOnClickListener {
             presenter.onAttemptSaveNote(
                 binding.titleInput.text.toString(),

@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="6dp">
+    android:layout_margin="@dimen/noteItem_cardMargin"
+    app:cardCornerRadius="@dimen/noteItem_cardCornerRadius"
+    app:cardElevation="@dimen/noteItem_cardElevation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,30 +16,30 @@
 
         <TextView
             android:id="@+id/note_title"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/noteItem_marginStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="@dimen/noteItem_titleTextSize"
             android:singleLine="true"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/note_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/noteItem_marginStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="@dimen/noteItem_textSize"
             android:maxLines="4"
             android:ellipsize="end"
             android:textStyle="italic" />
 
         <TextView
             android:id="@+id/note_date"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginStart="@dimen/noteItem_marginStart"
+            android:layout_marginTop="@dimen/noteItem_date_marginTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="@dimen/noteItem_textSize"
             android:singleLine="true"
             android:textStyle="italic" />
 

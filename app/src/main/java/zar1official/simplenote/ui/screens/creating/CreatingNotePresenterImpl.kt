@@ -5,9 +5,8 @@ import zar1official.simplenote.ui.screens.creating.base.CreatingNotePresenter
 import zar1official.simplenote.ui.screens.creating.base.CreatingNoteView
 import java.util.*
 
-class CreatingNotePresenterImpl(val view: CreatingNoteView) :
+class CreatingNotePresenterImpl(val view: CreatingNoteView, val note: Note) :
     CreatingNotePresenter {
-    val note = Note()
 
     private fun updateTitle(title: String) {
         note.title = title
