@@ -6,10 +6,12 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import zar1official.simplenote.R
+import zar1official.simplenote.application.App
 import zar1official.simplenote.databinding.FragmentCreatingNoteBinding
-import zar1official.simplenote.model.Note
+import zar1official.simplenote.model.models.Note
 import zar1official.simplenote.ui.screens.creating.base.CreatingNotePresenter
 import zar1official.simplenote.ui.screens.creating.base.CreatingNoteView
+import zar1official.simplenote.ui.screens.creating.dialog.ConfirmCreatingDialog
 
 class CreatingNoteFragment : Fragment(), CreatingNoteView {
 
@@ -27,13 +29,8 @@ class CreatingNoteFragment : Fragment(), CreatingNoteView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = CreatingNotePresenterImpl(this, Note())
-        binding.saveButton.setOnClickListener {
-            presenter.onAttemptSaveNote(
-                binding.titleInput.text.toString(),
-                binding.textInput.text.toString()
-            )
-        }
+        val repository = App.instance.repository
+        presenter = CreatingNotePresenterImpl(this, repository, Note())
     }
 
     companion object {
@@ -46,8 +43,9 @@ class CreatingNoteFragment : Fragment(), CreatingNoteView {
         setHasOptionsMenu(true)
     }
 
-    override fun saveSuccess() {
-        showMessage(getString(R.string.successful_save))
+    override fun saveSuccess(note: Note) {
+        ConfirmCreatingDialog.newInstance(note)
+            .show(childFragmentManager, ConfirmCreatingDialog.TAG)
     }
 
     override fun saveFailed() {
@@ -77,6 +75,12 @@ class CreatingNoteFragment : Fragment(), CreatingNoteView {
         when (item.itemId) {
             R.id.share -> {
                 presenter.onAttemptShareNote()
+            }
+            R.id.save -> {
+                presenter.onAttemptSaveNote(
+                    binding.titleInput.text.toString(),
+                    binding.textInput.text.toString()
+                )
             }
         }
         return true

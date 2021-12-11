@@ -1,4 +1,4 @@
-package zar1official.simplenote.utils
+package zar1official.simplenote.utils.other
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
@@ -9,5 +9,5 @@ object DateTimeUtils {
 
     @SuppressLint("SimpleDateFormat")
     fun millisToDateTime(millis: Long): String =
-        SimpleDateFormat(formatPattern).format(Date(millis * 1000))
+        SimpleDateFormat(formatPattern).format(Date(millis))
 }

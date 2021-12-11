@@ -1,11 +1,16 @@
 package zar1official.simplenote.ui.screens.creating
 
-import zar1official.simplenote.model.Note
+import zar1official.simplenote.model.models.Note
+import zar1official.simplenote.model.repositories.base.NoteRepository
 import zar1official.simplenote.ui.screens.creating.base.CreatingNotePresenter
 import zar1official.simplenote.ui.screens.creating.base.CreatingNoteView
 import java.util.*
 
-class CreatingNotePresenterImpl(val view: CreatingNoteView, val note: Note) :
+class CreatingNotePresenterImpl(
+    val view: CreatingNoteView,
+    private val repository: NoteRepository,
+    private val note: Note
+) :
     CreatingNotePresenter {
 
     private fun updateTitle(title: String) {
@@ -25,7 +30,7 @@ class CreatingNotePresenterImpl(val view: CreatingNoteView, val note: Note) :
             updateTitle(title)
             updateText(text)
             updateDate()
-            view.saveSuccess()
+            view.saveSuccess(note)
         } else {
             view.saveEmptyContent()
         }

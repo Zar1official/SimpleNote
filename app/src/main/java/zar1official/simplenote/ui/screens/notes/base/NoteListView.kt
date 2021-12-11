@@ -1,9 +1,10 @@
 package zar1official.simplenote.ui.screens.notes.base
 
-import zar1official.simplenote.model.Note
+import kotlinx.coroutines.flow.Flow
+import zar1official.simplenote.model.models.Note
 
 interface NoteListView {
-    fun onLoadedDataSuccessfully(data: List<Note>)
+    fun onLoadedDataSuccessfully(data: Flow<List<Note>>)
     fun onLoadingDataFailed()
     fun openNote(note: Note)
 }

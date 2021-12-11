@@ -1,8 +1,11 @@
 package zar1official.simplenote.model.repositories.base
 
-import zar1official.simplenote.model.Note
+import kotlinx.coroutines.flow.Flow
+import zar1official.simplenote.model.models.Note
 
 interface NoteRepository {
-    fun saveNote()
-    fun getNotes(): List<Note>?
+    suspend fun saveNotes(noteModel: Note)
+    suspend fun updateNotes(noteModel: Note)
+    suspend fun deleteNotes(noteModel: Note)
+    fun getNotes(): Flow<List<Note>>
 }

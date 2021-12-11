@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import zar1official.simplenote.databinding.FragmentNoteInfoBinding
-import zar1official.simplenote.model.Note
+import zar1official.simplenote.model.models.Note
 import zar1official.simplenote.ui.screens.notes.info.base.NoteInfoPresenter
 import zar1official.simplenote.ui.screens.notes.info.base.NoteInfoView
-import zar1official.simplenote.utils.DateTimeUtils
+import zar1official.simplenote.utils.other.DateTimeUtils
 
 class NoteInfoFragment : Fragment(), NoteInfoView {
     lateinit var presenter: NoteInfoPresenter

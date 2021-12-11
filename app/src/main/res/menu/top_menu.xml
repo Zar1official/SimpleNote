@@ -6,6 +6,13 @@
         android:title="@string/share_option"
         android:icon="@drawable/ic_share"
         app:showAsAction="ifRoom"
-        android:orderInCategory="1">
-    </item>
+        android:orderInCategory="1"></item>
+
+    <item
+        android:id="@+id/save"
+        android:title="@string/save_option"
+        android:icon="@drawable/ic_save"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="1"></item>
+
 </menu>

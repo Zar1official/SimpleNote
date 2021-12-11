@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import zar1official.simplenote.R
 import zar1official.simplenote.databinding.NoteItemBinding
-import zar1official.simplenote.model.Note
-import zar1official.simplenote.utils.DateTimeUtils
+import zar1official.simplenote.model.models.Note
+import zar1official.simplenote.utils.other.DateTimeUtils
 
 class NotesAdapter(private val notesList: List<Note>, private val clickListener: (Note) -> Unit) :
     RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
