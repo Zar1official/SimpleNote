@@ -21,7 +21,7 @@ class NoteInfoFragment : Fragment(), NoteInfoView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments.let {
-            note = it?.getParcelable(DATA_PARAM)
+            note = it?.getParcelable(DATA_PARAM) ?: throw IllegalArgumentException()
         }
     }
 
@@ -36,6 +36,10 @@ class NoteInfoFragment : Fragment(), NoteInfoView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter = NoteInfoPresenterImpl(this)
+        setupNote()
+    }
+
+    private fun setupNote() {
         binding.run {
             note?.let {
                 noteTitleInfo.text = it.title

@@ -4,8 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import zar1official.simplenote.R
-import zar1official.simplenote.application.App
 import zar1official.simplenote.databinding.FragmentCreatingNoteBinding
 import zar1official.simplenote.model.models.Note
 import zar1official.simplenote.ui.screens.creating.base.CreatingNotePresenter
@@ -18,6 +19,8 @@ class CreatingNoteFragment : Fragment(), CreatingNoteView {
     private lateinit var presenter: CreatingNotePresenter
     private var _binding: FragmentCreatingNoteBinding? = null
     private val binding get() = _binding!!
+    private val noteTitle get() = binding.textInput.text.toString()
+    private val noteText get() = binding.textInput.text.toString()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,8 +32,7 @@ class CreatingNoteFragment : Fragment(), CreatingNoteView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val repository = App.instance.repository
-        presenter = CreatingNotePresenterImpl(this, repository, Note())
+        presenter = CreatingNotePresenterImpl(this, Note())
     }
 
     companion object {
@@ -74,12 +76,17 @@ class CreatingNoteFragment : Fragment(), CreatingNoteView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.share -> {
-                presenter.onAttemptShareNote()
+                lifecycleScope.launch {
+                    presenter.onAttemptShareNote(
+                        noteTitle,
+                        noteText
+                    )
+                }
             }
             R.id.save -> {
                 presenter.onAttemptSaveNote(
-                    binding.titleInput.text.toString(),
-                    binding.textInput.text.toString()
+                    noteTitle,
+                    noteText
                 )
             }
         }

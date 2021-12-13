@@ -16,8 +16,12 @@ interface NoteDao {
     @Query("SELECT * FROM notes WHERE note_text LIKE :text LIMIT 1")
     suspend fun findNoteByText(text: String): NoteItem
 
+    @Query("SELECT * FROM notes WHERE note_date LIKE :date LIMIT 1")
+    suspend fun findNoteByDate(date: Long): NoteItem
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertNote(note: NoteItem)
+
     @Update
     suspend fun updateNote(note: NoteItem)
 

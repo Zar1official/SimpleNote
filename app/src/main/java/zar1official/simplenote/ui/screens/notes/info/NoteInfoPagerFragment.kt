@@ -15,14 +15,14 @@ class NoteInfoPagerFragment : Fragment(), NoteInfoPagerView {
     private var _binding: FragmentNoteInfoPagerBinding? = null
     private val binding get() = _binding!!
     private lateinit var presenter: NoteInfoPagerPresenter
-    private var notesList: ArrayList<Note>? = null
-    private var position: Int? = null
+    private lateinit var notesList: ArrayList<Note>
+    private var position: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments.let {
-            notesList = it?.getParcelableArrayList(NOTES_PARAM)
-            position = it?.getInt(POSITION_PARAM)
+            notesList = it?.getParcelableArrayList(NOTES_PARAM) ?: throw IllegalArgumentException()
+            position = it.getInt(POSITION_PARAM)
         }
     }
 
@@ -37,8 +37,12 @@ class NoteInfoPagerFragment : Fragment(), NoteInfoPagerView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter = NoteInfoPagerPresenterImpl(this)
-        binding.noteInfoViewPager.adapter = NotesInfoPagerAdapter(this, notesList!!)
-        binding.noteInfoViewPager.setCurrentItem(position!!, false)
+        setupAdapter()
+    }
+
+    private fun setupAdapter() {
+        binding.noteInfoViewPager.adapter = NotesInfoPagerAdapter(this, notesList)
+        binding.noteInfoViewPager.setCurrentItem(position, false)
     }
 
     companion object {
@@ -54,4 +58,10 @@ class NoteInfoPagerFragment : Fragment(), NoteInfoPagerView {
                 }
             }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }
