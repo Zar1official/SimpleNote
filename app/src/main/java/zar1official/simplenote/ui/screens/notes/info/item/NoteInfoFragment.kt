@@ -1,4 +1,4 @@
-package zar1official.simplenote.ui.screens.notes.info
+package zar1official.simplenote.ui.screens.notes.info.item
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import zar1official.simplenote.databinding.FragmentNoteInfoBinding
 import zar1official.simplenote.model.models.Note
-import zar1official.simplenote.ui.screens.notes.info.base.NoteInfoPresenter
-import zar1official.simplenote.ui.screens.notes.info.base.NoteInfoView
+import zar1official.simplenote.ui.screens.notes.info.item.base.NoteInfoPresenter
+import zar1official.simplenote.ui.screens.notes.info.item.base.NoteInfoView
 import zar1official.simplenote.utils.other.DateTimeUtils
 
 class NoteInfoFragment : Fragment(), NoteInfoView {
@@ -47,7 +47,6 @@ class NoteInfoFragment : Fragment(), NoteInfoView {
 
     companion object {
         private const val DATA_PARAM = "note_info"
-
         @JvmStatic
         fun newInstance(note: Note): NoteInfoFragment =
             NoteInfoFragment().apply {

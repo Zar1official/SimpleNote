@@ -10,8 +10,8 @@ class ConfirmCreatingPresenterImpl(
     private val repository: NoteRepository
 ) : ConfirmCreatingPresenter {
     override suspend fun onAttemptInsertNote(note: Note) {
-        repository.saveNotes(note)
         view.onInsertSuccessfully()
+        repository.saveNotes(note)
     }
 
     override fun onAttemptCancel() {

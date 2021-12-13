@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -18,13 +17,15 @@ import zar1official.simplenote.model.models.Note
 import zar1official.simplenote.ui.screens.notes.adapter.NotesAdapter
 import zar1official.simplenote.ui.screens.notes.base.NoteListPresenter
 import zar1official.simplenote.ui.screens.notes.base.NoteListView
-import zar1official.simplenote.ui.screens.notes.info.NoteInfoFragment
+import zar1official.simplenote.ui.screens.notes.info.NoteInfoPagerFragment
+import zar1official.simplenote.utils.other.showSnackBar
 
 class NotesListFragment : Fragment(), NoteListView {
 
     private var _binding: FragmentNotesListBinding? = null
     private val binding get() = _binding!!
     private lateinit var presenter: NoteListPresenter
+    private lateinit var noteAdapter: NotesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,18 +64,18 @@ class NotesListFragment : Fragment(), NoteListView {
     }
 
     override fun onLoadingDataFailed() {
-        showMessage(getString(R.string.load_notes_failed))
+        view?.showSnackBar(R.string.load_notes_failed)
     }
 
-    override fun openNote(note: Note) {
+    override fun openNote(position: Int, notesList: ArrayList<Note>) {
         parentFragmentManager.beginTransaction().replace(
-            R.id.fragment_wrapper, NoteInfoFragment.newInstance(note)
+            R.id.fragment_wrapper, NoteInfoPagerFragment.newInstance(position, notesList)
         ).addToBackStack(FRAGMENT_TAG).commit()
     }
 
     private fun setupRecyclerAdapter(notes: List<Note>) {
-        val noteAdapter = NotesAdapter(notes) {
-            presenter.onAttemptOpenNote(it)
+        noteAdapter = NotesAdapter(notes) {
+            presenter.onAttemptOpenNote(it, noteAdapter.notesList)
         }
         binding.notesRcView.run {
             layoutManager =
@@ -83,8 +84,4 @@ class NotesListFragment : Fragment(), NoteListView {
         }
     }
 
-
-    private fun showMessage(message: String) {
-        Snackbar.make(this.requireContext(), binding.root, message, Snackbar.LENGTH_SHORT).show()
-    }
 }

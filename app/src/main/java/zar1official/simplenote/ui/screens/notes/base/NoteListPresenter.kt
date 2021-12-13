@@ -4,5 +4,5 @@ import zar1official.simplenote.model.models.Note
 
 interface NoteListPresenter {
     fun onLoadData()
-    fun onAttemptOpenNote(note: Note)
+    fun onAttemptOpenNote(position: Int, notesList: ArrayList<Note>)
 }

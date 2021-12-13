@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import com.google.android.material.snackbar.Snackbar
 import zar1official.simplenote.R
 import zar1official.simplenote.application.App
 import zar1official.simplenote.databinding.FragmentCreatingNoteBinding
@@ -12,6 +11,7 @@ import zar1official.simplenote.model.models.Note
 import zar1official.simplenote.ui.screens.creating.base.CreatingNotePresenter
 import zar1official.simplenote.ui.screens.creating.base.CreatingNoteView
 import zar1official.simplenote.ui.screens.creating.dialog.ConfirmCreatingDialog
+import zar1official.simplenote.utils.other.showSnackBar
 
 class CreatingNoteFragment : Fragment(), CreatingNoteView {
 
@@ -49,11 +49,11 @@ class CreatingNoteFragment : Fragment(), CreatingNoteView {
     }
 
     override fun saveFailed() {
-        showMessage(getString(R.string.save_failed))
+        view?.showSnackBar(R.string.save_failed)
     }
 
     override fun saveEmptyContent() {
-        showMessage(getString(R.string.saved_empty_content))
+        view?.showSnackBar(R.string.saved_empty_content)
     }
 
     override fun shareNote(title: String, text: String) {
@@ -64,7 +64,7 @@ class CreatingNoteFragment : Fragment(), CreatingNoteView {
     }
 
     override fun shareFailed() {
-        showMessage(getString(R.string.share_failed))
+        view?.showSnackBar(R.string.share_failed)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -84,10 +84,6 @@ class CreatingNoteFragment : Fragment(), CreatingNoteView {
             }
         }
         return true
-    }
-
-    private fun showMessage(message: String) {
-        Snackbar.make(this.requireContext(), binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

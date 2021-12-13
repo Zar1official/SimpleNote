@@ -2,7 +2,7 @@ package zar1official.simplenote.model.repositories
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import zar1official.simplenote.model.dao.NoteDao
+import zar1official.simplenote.model.database.NoteDao
 import zar1official.simplenote.model.models.Note
 import zar1official.simplenote.model.repositories.base.NoteRepository
 import zar1official.simplenote.utils.mappers.NoteMapper

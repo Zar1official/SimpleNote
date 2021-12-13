@@ -13,7 +13,7 @@ class NoteListPresenterImpl(val view: NoteListView, val repository: NoteReposito
         else -> view.onLoadedDataSuccessfully(data)
     }
 
-    override fun onAttemptOpenNote(note: Note) {
-        view.openNote(note)
+    override fun onAttemptOpenNote(position: Int, notesList: ArrayList<Note>) {
+        view.openNote(position, notesList)
     }
 }

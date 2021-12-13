@@ -1,7 +1,7 @@
 package zar1official.simplenote.application
 
 import android.app.Application
-import zar1official.simplenote.model.dao.NoteDao
+import zar1official.simplenote.model.database.NoteDao
 import zar1official.simplenote.model.database.NoteDatabase
 import zar1official.simplenote.model.repositories.NoteRepositoryImpl
 import zar1official.simplenote.model.repositories.base.NoteRepository

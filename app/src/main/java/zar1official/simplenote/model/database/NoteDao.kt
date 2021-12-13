@@ -1,4 +1,4 @@
-package zar1official.simplenote.model.dao
+package zar1official.simplenote.model.database
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +18,6 @@ interface NoteDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertNote(note: NoteItem)
-
     @Update
     suspend fun updateNote(note: NoteItem)
 

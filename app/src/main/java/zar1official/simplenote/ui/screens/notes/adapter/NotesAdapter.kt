@@ -9,8 +9,10 @@ import zar1official.simplenote.databinding.NoteItemBinding
 import zar1official.simplenote.model.models.Note
 import zar1official.simplenote.utils.other.DateTimeUtils
 
-class NotesAdapter(private val notesList: List<Note>, private val clickListener: (Note) -> Unit) :
+class NotesAdapter(notes: List<Note>, private val clickListener: (Int) -> Unit) :
     RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
+
+    val notesList = notes as ArrayList<Note>
 
     inner class NoteViewHolder(noteView: View, clickAt: (Int) -> Unit) :
         RecyclerView.ViewHolder(noteView) {
@@ -32,7 +34,7 @@ class NotesAdapter(private val notesList: List<Note>, private val clickListener:
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false)
         return NoteViewHolder(view) {
-            clickListener(notesList[it])
+            clickListener(it)
         }
     }
 

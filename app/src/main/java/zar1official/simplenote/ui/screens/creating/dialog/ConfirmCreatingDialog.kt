@@ -6,13 +6,13 @@ import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import zar1official.simplenote.R
 import zar1official.simplenote.application.App
 import zar1official.simplenote.model.models.Note
 import zar1official.simplenote.ui.screens.creating.dialog.base.ConfirmCreatingPresenter
 import zar1official.simplenote.ui.screens.creating.dialog.base.ConfirmCreatingView
+import zar1official.simplenote.utils.other.showSnackBar
 
 class ConfirmCreatingDialog : DialogFragment(), ConfirmCreatingView {
     private lateinit var presenter: ConfirmCreatingPresenter
@@ -25,7 +25,6 @@ class ConfirmCreatingDialog : DialogFragment(), ConfirmCreatingView {
         }
         presenter = ConfirmCreatingPresenterImpl(this, App.instance.repository)
     }
-
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -57,12 +56,7 @@ class ConfirmCreatingDialog : DialogFragment(), ConfirmCreatingView {
     }
 
     override fun onInsertSuccessfully() {
-        Snackbar.make(
-            requireContext(),
-            requireParentFragment().requireView(),
-            getString(R.string.successful_save),
-            Snackbar.LENGTH_SHORT
-        ).show()
+        requireParentFragment().requireView().showSnackBar(R.string.successful_save)
     }
 
     override fun onInsertCancel() {

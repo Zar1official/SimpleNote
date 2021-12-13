@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_main"
-    tools:context=".ui.screens.notes.info.NoteInfoFragment">
+    tools:context=".ui.screens.notes.info.item.NoteInfoFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
