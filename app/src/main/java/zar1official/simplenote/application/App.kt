@@ -1,11 +1,7 @@
 package zar1official.simplenote.application
 
 import android.app.Application
-import zar1official.simplenote.model.database.NoteDao
 import zar1official.simplenote.model.database.NoteDatabase
-import zar1official.simplenote.model.repositories.NoteRepositoryImpl
-import zar1official.simplenote.model.repositories.base.NoteRepository
-import zar1official.simplenote.utils.mappers.NoteMapper
 
 class App : Application() {
     companion object {
@@ -13,18 +9,12 @@ class App : Application() {
             private set
     }
 
-    lateinit var repository: NoteRepository
+    lateinit var db: NoteDatabase
         private set
-
-    private lateinit var db: NoteDao
-
-    private lateinit var mapper: NoteMapper
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        db = NoteDatabase.getDatabase(this).noteDao()
-        mapper = NoteMapper()
-        repository = NoteRepositoryImpl(db, mapper)
+        db = NoteDatabase.getDatabase(this)
     }
 }

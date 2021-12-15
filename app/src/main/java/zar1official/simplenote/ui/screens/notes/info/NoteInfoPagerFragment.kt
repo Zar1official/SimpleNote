@@ -20,8 +20,8 @@ class NoteInfoPagerFragment : Fragment(), NoteInfoPagerView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments.let {
-            notesList = it?.getParcelableArrayList(NOTES_PARAM) ?: throw IllegalArgumentException()
+        arguments?.let {
+            notesList = it.getParcelableArrayList(NOTES_PARAM) ?: throw IllegalArgumentException()
             position = it.getInt(POSITION_PARAM)
         }
     }

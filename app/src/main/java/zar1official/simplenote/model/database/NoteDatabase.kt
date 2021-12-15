@@ -11,6 +11,8 @@ abstract class NoteDatabase : RoomDatabase() {
     abstract fun noteDao(): NoteDao
 
     companion object {
+        const val DATABASE_NAME = "note_database"
+
         @Volatile
         private var INSTANCE: NoteDatabase? = null
 
@@ -19,7 +21,7 @@ abstract class NoteDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     NoteDatabase::class.java,
-                    "note_database"
+                    DATABASE_NAME
                 ).build()
                 INSTANCE = instance
                 instance

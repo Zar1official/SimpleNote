@@ -10,8 +10,10 @@ import kotlinx.coroutines.launch
 import zar1official.simplenote.R
 import zar1official.simplenote.application.App
 import zar1official.simplenote.model.models.Note
+import zar1official.simplenote.model.repositories.NoteRepositoryImpl
 import zar1official.simplenote.ui.screens.creating.dialog.base.ConfirmCreatingPresenter
 import zar1official.simplenote.ui.screens.creating.dialog.base.ConfirmCreatingView
+import zar1official.simplenote.utils.mappers.NoteMapper
 import zar1official.simplenote.utils.other.showSnackBar
 
 class ConfirmCreatingDialog : DialogFragment(), ConfirmCreatingView {
@@ -20,10 +22,12 @@ class ConfirmCreatingDialog : DialogFragment(), ConfirmCreatingView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments.let {
-            note = it?.getParcelable(DATA_PARAM)
+        arguments?.let {
+            note = it.getParcelable(DATA_PARAM)
         }
-        presenter = ConfirmCreatingPresenterImpl(this, App.instance.repository)
+        val noteDao = App.instance.db.noteDao()
+        val repository = NoteRepositoryImpl(noteDao, NoteMapper())
+        presenter = ConfirmCreatingPresenterImpl(this, repository)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

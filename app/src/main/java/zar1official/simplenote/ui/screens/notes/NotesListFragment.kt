@@ -14,10 +14,12 @@ import zar1official.simplenote.R
 import zar1official.simplenote.application.App
 import zar1official.simplenote.databinding.FragmentNotesListBinding
 import zar1official.simplenote.model.models.Note
+import zar1official.simplenote.model.repositories.NoteRepositoryImpl
 import zar1official.simplenote.ui.screens.notes.adapter.NotesAdapter
 import zar1official.simplenote.ui.screens.notes.base.NoteListPresenter
 import zar1official.simplenote.ui.screens.notes.base.NoteListView
 import zar1official.simplenote.ui.screens.notes.info.NoteInfoPagerFragment
+import zar1official.simplenote.utils.mappers.NoteMapper
 import zar1official.simplenote.utils.other.showSnackBar
 
 class NotesListFragment : Fragment(), NoteListView {
@@ -37,7 +39,8 @@ class NotesListFragment : Fragment(), NoteListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val repository = App.instance.repository
+        val noteDao = App.instance.db.noteDao()
+        val repository = NoteRepositoryImpl(noteDao, NoteMapper())
         presenter = NoteListPresenterImpl(this@NotesListFragment, repository)
         presenter.onLoadData()
     }
