@@ -4,4 +4,5 @@ interface MainView {
     fun openNewNote()
     fun openNotes()
     fun openAbout()
+    fun setHomeFragment()
 }

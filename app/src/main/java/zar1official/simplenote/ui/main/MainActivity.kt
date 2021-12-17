@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), MainView {
         setContentView(binding.root)
 
         presenter = MainPresenterImpl(this)
-        setHomeFragment()
+        presenter.onAttemptSetHomeFragment(savedInstanceState)
 
         binding.navView.setOnItemSelectedListener {
             when (it.itemId) {
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity(), MainView {
         supportFragmentManager.beginTransaction().replace(R.id.fragment_wrapper, fragment).commit()
     }
 
-    private fun setHomeFragment() {
+    override fun setHomeFragment() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_wrapper, CreatingNoteFragment())
             .commit()
