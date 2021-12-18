@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">SimpleNote</string>
+    <string name="app_name" translatable="false">SimpleNote</string>
     <!--    hints-->
-    <string name="header_hint">TITLE</string>
+    <string name="header_hint">Title</string>
 
     <!--    messages-->
     <string name="successful_save">Saved successfully!</string>
@@ -13,13 +13,14 @@
     <!--    top menu-->
     <string name="share_option">Share</string>
     <string name="save_option">Save</string>
-    <!--    bottom menu-->
 
+    <!--    bottom menu-->
     <string name="notes">Notes</string>
     <string name="new_note">New</string>
     <string name="about">About</string>
 
-    <string name="about_description">SimpleNote 1.0\nCopyright © 2021 zar1official</string>
+    <!--    info-->
+    <string name="about_description" translatable="false">SimpleNote 1.0\nCopyright © 2021 zar1official</string>
 
     <!--    dialogs-->
     <string name="confirm_creating_title">Are you sure?</string>

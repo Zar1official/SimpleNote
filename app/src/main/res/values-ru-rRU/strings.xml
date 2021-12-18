@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SimpleNote</string>
+    <string name="header_hint">Заголовок</string>
+    <string name="successful_save">Успешно сохранено!</string>
+    <string name="saved_empty_content">Сохранение не удалось. Заметка пустая.</string>
+    <string name="save_failed">Сохранение не удалось</string>
+    <string name="share_failed">Поделиться не удалось. Заметка пустая.</string>
+    <string name="load_notes_failed">Загрузка заметок не удалась</string>
+    <string name="share_option">Поделиться</string>
+    <string name="save_option">Сохранить</string>
+    <string name="notes">Заметки</string>
+    <string name="new_note">Создать</string>
+    <string name="about">О нас</string>
+    <string name="confirm_creating_title">Вы уверены?</string>
+    <string name="confirm_creating_message">Заметка будет сохранена</string>
+    <string name="confirm_creating_ok">ОК</string>
+    <string name="confirm_creating_cancel">Отмена</string>
+</resources>

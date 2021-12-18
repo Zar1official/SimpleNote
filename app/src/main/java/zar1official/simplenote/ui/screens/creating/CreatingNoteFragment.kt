@@ -31,7 +31,6 @@ class CreatingNoteFragment : Fragment(), CreatingNoteView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         presenter = CreatingNotePresenterImpl(this, Note())
     }
 
