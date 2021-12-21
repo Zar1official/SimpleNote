@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import zar1official.simplenote.databinding.FragmentAboutBinding
-import zar1official.simplenote.ui.screens.about.base.AboutPresenter
-import zar1official.simplenote.ui.screens.about.base.AboutView
 
-class AboutFragment : Fragment(), AboutView {
+class AboutFragment : Fragment() {
 
     private var _binding: FragmentAboutBinding? = null
     private val binding get() = _binding!!
-    private lateinit var presenter: AboutPresenter
+    private lateinit var viewModelFactory: AboutViewModelFactory
+    private val viewModel: AboutViewModel by viewModels { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,9 +23,13 @@ class AboutFragment : Fragment(), AboutView {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        presenter = AboutPresenterImpl(this)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initViewModelFactory()
+    }
+
+    private fun initViewModelFactory() {
+        viewModelFactory = AboutViewModelFactory()
     }
 
     companion object {

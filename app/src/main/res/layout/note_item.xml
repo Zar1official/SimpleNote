@@ -1,48 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
-    android:layout_margin="@dimen/noteItem_cardMargin"
-    app:cardCornerRadius="@dimen/noteItem_cardCornerRadius"
-    app:cardElevation="@dimen/noteItem_cardElevation">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_margin="@dimen/noteItem_cardMargin"
+        app:cardCornerRadius="@dimen/noteItem_cardCornerRadius"
+        app:cardElevation="@dimen/noteItem_cardElevation">
 
-        <TextView
-            android:id="@+id/note_title"
-            android:layout_marginStart="@dimen/noteItem_marginStart"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/noteItem_titleTextSize"
-            android:singleLine="true"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
-        <TextView
-            android:id="@+id/note_content"
-            android:layout_marginStart="@dimen/noteItem_marginStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/noteItem_textSize"
-            android:maxLines="4"
-            android:ellipsize="end"
-            android:textStyle="italic" />
+            <TextView
+                android:id="@+id/note_title"
+                android:layout_marginStart="@dimen/noteItem_marginStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/noteItem_titleTextSize"
+                android:singleLine="true"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/note_date"
-            android:layout_marginStart="@dimen/noteItem_marginStart"
-            android:layout_marginTop="@dimen/noteItem_date_marginTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/noteItem_textSize"
-            android:singleLine="true"
-            android:textStyle="italic" />
+            <TextView
+                android:id="@+id/note_content"
+                android:layout_marginStart="@dimen/noteItem_marginStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/noteItem_textSize"
+                android:maxLines="4"
+                android:ellipsize="end"
+                android:textStyle="italic" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/note_date"
+                android:layout_marginStart="@dimen/noteItem_marginStart"
+                android:layout_marginTop="@dimen/noteItem_date_marginTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/noteItem_textSize"
+                android:singleLine="true"
+                android:textStyle="italic" />
 
-</com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

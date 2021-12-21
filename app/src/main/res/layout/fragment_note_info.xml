@@ -1,73 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_main"
-    tools:context=".ui.screens.notes.info.item.NoteInfoFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
+    <data></data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/noteInfo_cardMargin"
-        android:minHeight="@dimen/noteInfo_cardMinHeight"
-        app:cardCornerRadius="@dimen/noteInfo_cardCornerRadius"
-        app:cardElevation="@dimen/noteInfo_cardElevation">
+        android:layout_height="match_parent"
+        android:background="@color/background_main"
+        tools:context=".ui.screens.notes.info.item.NoteInfoFragment">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/noteInfo_cardMargin"
+            android:minHeight="@dimen/noteInfo_cardMinHeight"
+            app:cardCornerRadius="@dimen/noteInfo_cardCornerRadius"
+            app:cardElevation="@dimen/noteInfo_cardElevation">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/noteInfo_title_margin_startEnd"
-                android:layout_marginTop="@dimen/noteInfo_title_marignTop"
-                android:layout_marginEnd="@dimen/noteInfo_title_margin_startEnd"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/note_title_info"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/noteInfo_title_textSize"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:layout_marginStart="@dimen/noteInfo_title_margin_startEnd"
+                    android:layout_marginTop="@dimen/noteInfo_title_marignTop"
+                    android:layout_marginEnd="@dimen/noteInfo_title_margin_startEnd"
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/noteInfo_content_margin"
-                android:layout_marginTop="@dimen/noteInfo_content_margin"
-                android:layout_marginEnd="@dimen/noteInfo_content_margin"
-                android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/note_title_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/noteInfo_title_textSize"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/note_content_info"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/noteInfo_content_textSize"
-                    android:textStyle="italic" />
-            </LinearLayout>
+                    android:layout_marginStart="@dimen/noteInfo_content_margin"
+                    android:layout_marginTop="@dimen/noteInfo_content_margin"
+                    android:layout_marginEnd="@dimen/noteInfo_content_margin"
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/noteInfo_date_margin_startEnd"
-                android:layout_marginTop="@dimen/noteInfo_date_marginTop"
-                android:layout_marginEnd="@dimen/noteInfo_date_margin_startEnd"
-                android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/note_content_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/noteInfo_content_textSize"
+                        android:textStyle="italic" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/note_date_info"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/noteInfo_date_textSize"
-                    android:textStyle="italic" />
-            </LinearLayout>
-        </LinearLayout>
+                    android:layout_marginStart="@dimen/noteInfo_date_margin_startEnd"
+                    android:layout_marginTop="@dimen/noteInfo_date_marginTop"
+                    android:layout_marginEnd="@dimen/noteInfo_date_margin_startEnd"
+                    android:orientation="vertical">
 
-    </com.google.android.material.card.MaterialCardView>
-</ScrollView>
+                    <TextView
+                        android:id="@+id/note_date_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/noteInfo_date_textSize"
+                        android:textStyle="italic" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </ScrollView>
+</layout>

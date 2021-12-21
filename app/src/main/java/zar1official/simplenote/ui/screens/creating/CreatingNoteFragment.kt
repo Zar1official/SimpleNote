@@ -4,34 +4,29 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
+import androidx.fragment.app.viewModels
 import zar1official.simplenote.R
 import zar1official.simplenote.databinding.FragmentCreatingNoteBinding
 import zar1official.simplenote.model.models.Note
-import zar1official.simplenote.ui.screens.creating.base.CreatingNotePresenter
-import zar1official.simplenote.ui.screens.creating.base.CreatingNoteView
 import zar1official.simplenote.ui.screens.creating.dialog.ConfirmCreatingDialog
 import zar1official.simplenote.utils.other.showSnackBar
 
-class CreatingNoteFragment : Fragment(), CreatingNoteView {
+class CreatingNoteFragment : Fragment() {
 
-    private lateinit var presenter: CreatingNotePresenter
+    private lateinit var viewModelFactory: CreatingNoteViewModelFactory
+    private val viewModel: CreatingNoteViewModel by viewModels { viewModelFactory }
     private var _binding: FragmentCreatingNoteBinding? = null
     private val binding get() = _binding!!
-    private val noteTitle get() = binding.textInput.text.toString()
-    private val noteText get() = binding.textInput.text.toString()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCreatingNoteBinding.inflate(inflater, container, false)
+        _binding = FragmentCreatingNoteBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = this@CreatingNoteFragment
+            viewmodel = viewModel
+        }
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        presenter = CreatingNotePresenterImpl(this, Note())
     }
 
     companion object {
@@ -41,31 +36,40 @@ class CreatingNoteFragment : Fragment(), CreatingNoteView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModelFactory = CreatingNoteViewModelFactory()
+        subscribeViewModel()
         setHasOptionsMenu(true)
     }
 
-    override fun saveSuccess(note: Note) {
-        ConfirmCreatingDialog.newInstance(note)
-            .show(childFragmentManager, ConfirmCreatingDialog.TAG)
+    private fun subscribeViewModel() {
+        viewModel.onSuccessfulAttemptSave.observe(this) { note ->
+            showConfirmDialog(note)
+        }
+
+        viewModel.onFailAttemptSave.observe(this) {
+            view?.showSnackBar(R.string.saved_empty_content)
+        }
+
+        viewModel.onSuccessfulAttemptShare.observe(this) { note ->
+            shareNote(note)
+        }
+
+        viewModel.onFailAttemptShare.observe(this) {
+            view?.showSnackBar(R.string.share_failed)
+        }
     }
 
-    override fun saveFailed() {
-        view?.showSnackBar(R.string.save_failed)
-    }
 
-    override fun saveEmptyContent() {
-        view?.showSnackBar(R.string.saved_empty_content)
-    }
-
-    override fun shareNote(title: String, text: String) {
+    private fun shareNote(note: Note) {
         startActivity(Intent(Intent.ACTION_SEND).apply {
             type = "plain/text"
-            putExtra(Intent.EXTRA_TEXT, "$title\n$text")
+            putExtra(Intent.EXTRA_TEXT, "${note.title}\n${note.text}")
         })
     }
 
-    override fun shareFailed() {
-        view?.showSnackBar(R.string.share_failed)
+    private fun showConfirmDialog(note: Note) {
+        ConfirmCreatingDialog.newInstance(note)
+            .show(childFragmentManager, ConfirmCreatingDialog.TAG)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -75,18 +79,10 @@ class CreatingNoteFragment : Fragment(), CreatingNoteView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.share -> {
-                lifecycleScope.launch {
-                    presenter.onAttemptShareNote(
-                        noteTitle,
-                        noteText
-                    )
-                }
+                viewModel.onAttemptShareNote()
             }
             R.id.save -> {
-                presenter.onAttemptSaveNote(
-                    noteTitle,
-                    noteText
-                )
+                viewModel.onAttemptSaveNote()
             }
         }
         return true

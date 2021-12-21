@@ -5,28 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import zar1official.simplenote.R
 import zar1official.simplenote.application.App
 import zar1official.simplenote.databinding.FragmentNotesListBinding
 import zar1official.simplenote.model.models.Note
 import zar1official.simplenote.model.repositories.NoteRepositoryImpl
+import zar1official.simplenote.model.repositories.base.NoteRepository
 import zar1official.simplenote.ui.screens.notes.adapter.NotesAdapter
-import zar1official.simplenote.ui.screens.notes.base.NoteListPresenter
-import zar1official.simplenote.ui.screens.notes.base.NoteListView
 import zar1official.simplenote.ui.screens.notes.info.NoteInfoPagerFragment
 import zar1official.simplenote.utils.mappers.NoteMapper
 import zar1official.simplenote.utils.other.showSnackBar
 
-class NotesListFragment : Fragment(), NoteListView {
+class NotesListFragment : Fragment() {
 
     private var _binding: FragmentNotesListBinding? = null
     private val binding get() = _binding!!
-    private lateinit var presenter: NoteListPresenter
+    private lateinit var viewModelFactory: NotesListViewModelFactory
+    private val viewModel: NotesListViewModel by viewModels { viewModelFactory }
+    private lateinit var repository: NoteRepository
     private lateinit var noteAdapter: NotesAdapter
 
     override fun onCreateView(
@@ -37,12 +35,40 @@ class NotesListFragment : Fragment(), NoteListView {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initRepository()
+        initViewModelFactory()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        subscribeViewModel()
+        viewModel.loadData()
+    }
+
+    private fun initRepository() {
         val noteDao = App.instance.db.noteDao()
-        val repository = NoteRepositoryImpl(noteDao, NoteMapper())
-        presenter = NoteListPresenterImpl(this@NotesListFragment, repository)
-        presenter.onLoadData()
+        val noteMapper = NoteMapper()
+        repository = NoteRepositoryImpl(noteDao, noteMapper)
+    }
+
+    private fun initViewModelFactory() {
+        viewModelFactory = NotesListViewModelFactory(repository)
+    }
+
+    private fun subscribeViewModel() {
+        viewModel.allNotes.observe(this) { data ->
+            when (data) {
+                null -> {
+                    view?.showSnackBar(R.string.load_notes_failed)
+                }
+                else -> {
+                    hideProgressBar()
+                    setupRecyclerAdapter(data)
+                }
+            }
+        }
     }
 
     companion object {
@@ -58,19 +84,7 @@ class NotesListFragment : Fragment(), NoteListView {
         _binding = null
     }
 
-    override fun onLoadedDataSuccessfully(data: Flow<List<Note>>) {
-        lifecycleScope.launch {
-            data.collect {
-                setupRecyclerAdapter(it)
-            }
-        }
-    }
-
-    override fun onLoadingDataFailed() {
-        view?.showSnackBar(R.string.load_notes_failed)
-    }
-
-    override fun openNote(position: Int, notesList: ArrayList<Note>) {
+    private fun openNote(position: Int, notesList: ArrayList<Note>) {
         parentFragmentManager.beginTransaction().replace(
             R.id.fragment_wrapper, NoteInfoPagerFragment.newInstance(position, notesList)
         ).addToBackStack(FRAGMENT_TAG).commit()
@@ -78,13 +92,17 @@ class NotesListFragment : Fragment(), NoteListView {
 
     private fun setupRecyclerAdapter(notes: List<Note>) {
         noteAdapter = NotesAdapter(notes) {
-            presenter.onAttemptOpenNote(it, noteAdapter.notesList)
+            openNote(it, noteAdapter.notesList)
         }
         binding.notesRcView.run {
             layoutManager =
                 StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL)
             adapter = noteAdapter
         }
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBar.visibility = View.GONE
     }
 
 }
