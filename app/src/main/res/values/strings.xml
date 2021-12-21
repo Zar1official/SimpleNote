@@ -27,5 +27,8 @@
     <string name="confirm_creating_message">Note will be saved</string>
     <string name="confirm_creating_ok">OK</string>
     <string name="confirm_creating_cancel">Cancel</string>
+
+    <!--    content description-->
+    <string name="note_item_description">"Note with title "</string>
 </resources>
 

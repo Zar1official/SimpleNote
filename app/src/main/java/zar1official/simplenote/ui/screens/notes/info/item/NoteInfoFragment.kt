@@ -59,7 +59,6 @@ class NoteInfoFragment : Fragment() {
 
     companion object {
         private const val DATA_PARAM = "note_info"
-
         @JvmStatic
         fun newInstance(note: Note): NoteInfoFragment =
             NoteInfoFragment().apply {
