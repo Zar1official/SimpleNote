@@ -59,7 +59,6 @@ class CreatingNoteFragment : Fragment() {
         }
     }
 
-
     private fun shareNote(note: Note) {
         startActivity(Intent(Intent.ACTION_SEND).apply {
             type = "plain/text"

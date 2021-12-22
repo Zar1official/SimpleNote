@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import zar1official.simplenote.databinding.FragmentNoteInfoPagerBinding
 import zar1official.simplenote.model.models.Note
 import zar1official.simplenote.ui.screens.notes.info.adapter.NotesInfoPagerAdapter
@@ -13,14 +12,11 @@ import zar1official.simplenote.ui.screens.notes.info.adapter.NotesInfoPagerAdapt
 class NoteInfoPagerFragment : Fragment() {
     private var _binding: FragmentNoteInfoPagerBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModelFactory: NoteInfoPagerViewModelFactory
-    private val viewModel: NoteInfoPagerViewModel by viewModels { viewModelFactory }
-    private lateinit var notesList: ArrayList<Note>
+    private var notesList: ArrayList<Note> = arrayListOf(Note())
     private var position: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initViewModelFactory()
         getArgs()
     }
 
@@ -37,13 +33,9 @@ class NoteInfoPagerFragment : Fragment() {
         setupAdapter()
     }
 
-    private fun initViewModelFactory() {
-        viewModelFactory = NoteInfoPagerViewModelFactory()
-    }
-
     private fun getArgs() {
         arguments?.let {
-            notesList = it.getParcelableArrayList(NOTES_PARAM) ?: throw IllegalArgumentException()
+            notesList = it.getParcelableArrayList(NOTES_PARAM) ?: notesList
             position = it.getInt(POSITION_PARAM)
         }
     }
