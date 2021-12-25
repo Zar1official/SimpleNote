@@ -6,9 +6,15 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import zar1official.simplenote.R
+import zar1official.simplenote.application.App
 import zar1official.simplenote.databinding.FragmentCreatingNoteBinding
 import zar1official.simplenote.model.models.Note
+import zar1official.simplenote.model.network.service.NoteService
+import zar1official.simplenote.model.repositories.NoteRepositoryImpl
+import zar1official.simplenote.model.repositories.base.NoteRepository
 import zar1official.simplenote.ui.screens.creating.dialog.ConfirmCreatingDialog
+import zar1official.simplenote.utils.mappers.NetworkNoteMapper
+import zar1official.simplenote.utils.mappers.NoteMapper
 import zar1official.simplenote.utils.other.showSnackBar
 
 class CreatingNoteFragment : Fragment() {
@@ -17,6 +23,7 @@ class CreatingNoteFragment : Fragment() {
     private val viewModel: CreatingNoteViewModel by viewModels { viewModelFactory }
     private var _binding: FragmentCreatingNoteBinding? = null
     private val binding get() = _binding!!
+    private lateinit var repository: NoteRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +43,24 @@ class CreatingNoteFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModelFactory = CreatingNoteViewModelFactory()
-        subscribeViewModel()
+        initRepository()
+        initViewModelFactory()
         setHasOptionsMenu(true)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        subscribeViewModel()
+    }
+
+    private fun initViewModelFactory() {
+        viewModelFactory = CreatingNoteViewModelFactory(repository)
+    }
+
+    private fun initRepository() {
+        val noteDao = App.instance.db.noteDao()
+        val noteService = App.instance.retrofitClient.create(NoteService::class.java)
+        repository = NoteRepositoryImpl(noteDao, noteService, NoteMapper(), NetworkNoteMapper())
     }
 
     private fun subscribeViewModel() {
@@ -56,6 +78,10 @@ class CreatingNoteFragment : Fragment() {
 
         viewModel.onFailAttemptShare.observe(this) {
             view?.showSnackBar(R.string.share_failed)
+        }
+
+        viewModel.onFailAttemptDownload.observe(this) {
+            view?.showSnackBar(R.string.download_failed)
         }
     }
 
@@ -82,6 +108,10 @@ class CreatingNoteFragment : Fragment() {
             }
             R.id.save -> {
                 viewModel.onAttemptSaveNote()
+            }
+
+            R.id.download -> {
+                viewModel.onAttemptDownloadNote()
             }
         }
         return true

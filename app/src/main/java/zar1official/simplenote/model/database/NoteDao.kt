@@ -2,7 +2,7 @@ package zar1official.simplenote.model.database
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import zar1official.simplenote.model.entities.NoteItem
+import zar1official.simplenote.model.database.entities.NoteItem
 
 @Dao
 interface NoteDao {

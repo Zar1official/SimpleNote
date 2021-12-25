@@ -9,15 +9,17 @@ import androidx.fragment.app.viewModels
 import zar1official.simplenote.R
 import zar1official.simplenote.application.App
 import zar1official.simplenote.model.models.Note
+import zar1official.simplenote.model.network.service.NoteService
 import zar1official.simplenote.model.repositories.NoteRepositoryImpl
 import zar1official.simplenote.model.repositories.base.NoteRepository
+import zar1official.simplenote.utils.mappers.NetworkNoteMapper
 import zar1official.simplenote.utils.mappers.NoteMapper
 import zar1official.simplenote.utils.other.showSnackBar
 
 class ConfirmCreatingDialog : DialogFragment() {
     private lateinit var repository: NoteRepository
     private lateinit var viewModelFactory: ConfirmCreatingViewModelFactory
-    private val viewModel: ConfirmCreatingViewModel by viewModels { viewModelFactory }
+    private val viewModel: ConfirmCreatingViewModel by viewModels(ownerProducer = { requireParentFragment() }) { viewModelFactory }
     private var note: Note? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +44,8 @@ class ConfirmCreatingDialog : DialogFragment() {
 
     private fun initRepository() {
         val noteDao = App.instance.db.noteDao()
-        repository = NoteRepositoryImpl(noteDao, NoteMapper())
+        val noteService = App.instance.retrofitClient.create(NoteService::class.java)
+        repository = NoteRepositoryImpl(noteDao, noteService, NoteMapper(), NetworkNoteMapper())
     }
 
     private fun initViewModelFactory() {

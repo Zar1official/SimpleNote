@@ -13,6 +13,7 @@
     <!--    top menu-->
     <string name="share_option">Share</string>
     <string name="save_option">Save</string>
+    <string name="download_option">Download</string>
 
     <!--    bottom menu-->
     <string name="notes">Notes</string>
@@ -30,5 +31,6 @@
 
     <!--    content description-->
     <string name="note_item_description">"Note with title "</string>
+    <string name="download_failed">Download failed!</string>
 </resources>
 

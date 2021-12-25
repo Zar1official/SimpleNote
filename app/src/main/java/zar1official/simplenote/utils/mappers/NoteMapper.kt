@@ -1,6 +1,6 @@
 package zar1official.simplenote.utils.mappers
 
-import zar1official.simplenote.model.entities.NoteItem
+import zar1official.simplenote.model.database.entities.NoteItem
 import zar1official.simplenote.model.models.Note
 import zar1official.simplenote.utils.mappers.base.EntityMapper
 
@@ -22,10 +22,4 @@ class NoteMapper : EntityMapper<NoteItem, Note> {
                 date = date
             )
         }
-
-    override fun mapFromEntityList(entityList: List<NoteItem>): List<Note> =
-        entityList.map { mapFromEntity(it) }
-
-    override fun mapToEntityList(domainList: List<Note>): List<NoteItem> =
-        domainList.map { mapToEntity(it) }
 }

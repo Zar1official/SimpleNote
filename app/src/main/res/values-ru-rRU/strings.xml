@@ -17,4 +17,6 @@
     <string name="confirm_creating_ok">ОК</string>
     <string name="confirm_creating_cancel">Отмена</string>
     <string name="note_item_description">"Заметка под названием "</string>
+    <string name="download_option">Скачать</string>
+    <string name="download_failed">Ошибка загрузки!</string>
 </resources>
