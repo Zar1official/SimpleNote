@@ -1,10 +1,10 @@
-package zar1official.simplenote.model.database
+package zar1official.simplenote.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import zar1official.simplenote.model.database.entities.NoteItem
+import zar1official.simplenote.data.database.entities.NoteItem
 
 @Database(entities = [NoteItem::class], version = 1)
 abstract class NoteDatabase : RoomDatabase() {

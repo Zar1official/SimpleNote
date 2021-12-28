@@ -2,7 +2,7 @@ package zar1official.simplenote.ui.screens.notes
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import zar1official.simplenote.model.repositories.base.NoteRepository
+import zar1official.simplenote.domain.NoteRepository
 
 class NotesListViewModelFactory(private val repository: NoteRepository) :
     ViewModelProvider.Factory {

@@ -1,8 +1,8 @@
-package zar1official.simplenote.utils.mappers
+package zar1official.simplenote.data.mappers
 
-import zar1official.simplenote.model.database.entities.NoteItem
-import zar1official.simplenote.model.models.Note
-import zar1official.simplenote.utils.mappers.base.EntityMapper
+import zar1official.simplenote.data.database.entities.NoteItem
+import zar1official.simplenote.data.mappers.base.EntityMapper
+import zar1official.simplenote.domain.Note
 
 class NoteMapper : EntityMapper<NoteItem, Note> {
     override fun mapFromEntity(entity: NoteItem): Note =
@@ -10,7 +10,8 @@ class NoteMapper : EntityMapper<NoteItem, Note> {
             Note(
                 title = title,
                 text = text,
-                date = date
+                date = date,
+                id = id
             )
         }
 
@@ -19,7 +20,8 @@ class NoteMapper : EntityMapper<NoteItem, Note> {
             NoteItem(
                 title = title,
                 text = text,
-                date = date
+                date = date,
+                id = id
             )
         }
 }

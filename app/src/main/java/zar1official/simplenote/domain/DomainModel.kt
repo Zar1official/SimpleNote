@@ -1,4 +1,4 @@
-package zar1official.simplenote.model.models.base
+package zar1official.simplenote.domain
 
 interface DomainModel {
     fun isEmpty(): Boolean

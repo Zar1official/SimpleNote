@@ -1,4 +1,4 @@
-package zar1official.simplenote.model.database.entities
+package zar1official.simplenote.data.database.entities
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

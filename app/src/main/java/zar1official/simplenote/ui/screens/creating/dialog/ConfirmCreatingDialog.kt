@@ -8,25 +8,27 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import zar1official.simplenote.R
 import zar1official.simplenote.application.App
-import zar1official.simplenote.model.models.Note
-import zar1official.simplenote.model.network.service.NoteService
-import zar1official.simplenote.model.repositories.NoteRepositoryImpl
-import zar1official.simplenote.model.repositories.base.NoteRepository
-import zar1official.simplenote.utils.mappers.NetworkNoteMapper
-import zar1official.simplenote.utils.mappers.NoteMapper
+import zar1official.simplenote.data.mappers.NetworkNoteMapper
+import zar1official.simplenote.data.mappers.NoteMapper
+import zar1official.simplenote.data.network.service.NoteService
+import zar1official.simplenote.data.repositories.NoteRepositoryImpl
+import zar1official.simplenote.domain.Note
+import zar1official.simplenote.domain.NoteRepository
 import zar1official.simplenote.utils.other.showSnackBar
 
 class ConfirmCreatingDialog : DialogFragment() {
     private lateinit var repository: NoteRepository
-    private lateinit var viewModelFactory: ConfirmCreatingViewModelFactory
-    private val viewModel: ConfirmCreatingViewModel by viewModels(ownerProducer = { requireParentFragment() }) { viewModelFactory }
-    private var note: Note? = null
+    private val viewModel: ConfirmCreatingViewModel by viewModels(ownerProducer = { requireParentFragment() }) {
+        ConfirmCreatingViewModelFactory(
+            repository
+        )
+    }
+    private var note: Note = Note()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getArgs()
         initRepository()
-        initViewModelFactory()
         subscribeViewModel()
     }
 
@@ -38,7 +40,7 @@ class ConfirmCreatingDialog : DialogFragment() {
 
     private fun getArgs() {
         arguments?.let {
-            note = it.getParcelable(DATA_PARAM)
+            note = it.getParcelable(DATA_PARAM) ?: note
         }
     }
 
@@ -48,10 +50,6 @@ class ConfirmCreatingDialog : DialogFragment() {
         repository = NoteRepositoryImpl(noteDao, noteService, NoteMapper(), NetworkNoteMapper())
     }
 
-    private fun initViewModelFactory() {
-        viewModelFactory = ConfirmCreatingViewModelFactory(repository)
-    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
@@ -59,7 +57,7 @@ class ConfirmCreatingDialog : DialogFragment() {
                 .setTitle(R.string.confirm_creating_title)
                 .setMessage(R.string.confirm_creating_message)
                 .setPositiveButton(R.string.confirm_creating_ok) { _, _ ->
-                    viewModel.onAttemptInsertNote(note!!)
+                    viewModel.onAttemptInsertNote(note)
                 }
                 .setNegativeButton(R.string.confirm_creating_cancel) { _, _ -> viewModel.onAttemptCancel() }
                 .create()
@@ -74,7 +72,7 @@ class ConfirmCreatingDialog : DialogFragment() {
         fun newInstance(note: Note): ConfirmCreatingDialog =
             ConfirmCreatingDialog().apply {
                 arguments = bundleOf(
-                    DATA_PARAM to note
+                    DATA_PARAM to note,
                 )
             }
     }

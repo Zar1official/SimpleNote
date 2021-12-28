@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    note item-->
+    <dimen name="noteItem_cardMargin">10dp</dimen>
+    <dimen name="noteItem_cardElevation">6dp</dimen>
+    <dimen name="noteItem_cardCornerRadius">20dp</dimen>
+
+    <dimen name="noteItem_date_marginTop">20dp</dimen>
+    <dimen name="noteItem_marginStart">15dp</dimen>
+    <dimen name="noteItem_textSize">28sp</dimen>
+    <dimen name="noteItem_titleTextSize">30sp</dimen>
+
+    <!--   creating note-->
+    <dimen name="creatingNote_layoutMargin">20dp</dimen>
+    <dimen name="textInput_minHeight">500dp</dimen>
+</resources>

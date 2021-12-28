@@ -2,8 +2,8 @@ package zar1official.simplenote.application
 
 import android.app.Application
 import retrofit2.Retrofit
-import zar1official.simplenote.model.database.NoteDatabase
-import zar1official.simplenote.model.network.Retrofit2Client
+import zar1official.simplenote.data.database.NoteDatabase
+import zar1official.simplenote.data.network.Retrofit2Client
 
 class App : Application() {
     companion object {

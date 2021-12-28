@@ -1,4 +1,4 @@
-package zar1official.simplenote.utils.mappers.base
+package zar1official.simplenote.data.mappers.base
 
 interface EntityMapper<Entity, DomainModel> {
     fun mapFromEntity(entity: Entity): DomainModel

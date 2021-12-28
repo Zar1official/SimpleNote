@@ -6,17 +6,24 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import zar1official.simplenote.model.models.Note
-import zar1official.simplenote.model.repositories.base.NoteRepository
+import zar1official.simplenote.domain.Note
+import zar1official.simplenote.domain.NoteRepository
 import zar1official.simplenote.utils.other.SingleLiveEvent
 import java.util.*
 
-class CreatingNoteViewModel(private val repository: NoteRepository) : ViewModel() {
+class CreatingNoteViewModel(
+    private val repository: NoteRepository,
+    currentNote: Note = Note()
+) : ViewModel() {
     val noteTitle = MutableLiveData<String>()
     val noteText = MutableLiveData<String>()
     val noteDate: Long
         get() = Calendar.getInstance().timeInMillis
+    val noteID: Long = currentNote.id
 
+    init {
+        saveFields(currentNote)
+    }
 
     val onSuccessfulAttemptSave = SingleLiveEvent<Note>()
     val onFailAttemptSave = SingleLiveEvent<Unit>()
@@ -36,7 +43,8 @@ class CreatingNoteViewModel(private val repository: NoteRepository) : ViewModel(
     private fun createNote() = Note(
         noteTitle.value.orEmpty(),
         noteText.value.orEmpty(),
-        noteDate
+        noteDate,
+        noteID
     )
 
     fun onAttemptShareNote() {
@@ -48,6 +56,10 @@ class CreatingNoteViewModel(private val repository: NoteRepository) : ViewModel(
         }
     }
 
+    private fun saveFields(note: Note) {
+        noteTitle.value = note.title
+        noteText.value = note.text
+    }
 
     fun onAttemptDownloadNote() {
         viewModelScope.launch {
@@ -56,8 +68,7 @@ class CreatingNoteViewModel(private val repository: NoteRepository) : ViewModel(
                     repository.loadNote()
                 }
             }.onSuccess {
-                noteTitle.value = it.title
-                noteText.value = it.text
+                saveFields(it)
             }.onFailure {
                 onFailAttemptDownload.call()
             }

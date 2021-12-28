@@ -1,8 +1,8 @@
-package zar1official.simplenote.utils.mappers
+package zar1official.simplenote.data.mappers
 
-import zar1official.simplenote.model.models.Note
-import zar1official.simplenote.model.network.entities.NetworkNote
-import zar1official.simplenote.utils.mappers.base.EntityMapper
+import zar1official.simplenote.data.mappers.base.EntityMapper
+import zar1official.simplenote.data.network.entities.NetworkNote
+import zar1official.simplenote.domain.Note
 
 class NetworkNoteMapper : EntityMapper<NetworkNote, Note> {
     override fun mapFromEntity(entity: NetworkNote): Note =

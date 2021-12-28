@@ -13,21 +13,5 @@
 
     <!--   creating note-->
     <dimen name="creatingNote_layoutMargin">15dp</dimen>
-
-    <!--    note info-->
-    <dimen name="noteInfo_cardMargin">10dp</dimen>
-    <dimen name="noteInfo_cardMinHeight">600dp</dimen>
-    <dimen name="noteInfo_cardElevation">6dp</dimen>
-    <dimen name="noteInfo_cardCornerRadius">20dp</dimen>
-
-    <dimen name="noteInfo_content_margin">10dp</dimen>
-    <dimen name="noteInfo_content_textSize">20sp</dimen>
-
-    <dimen name="noteInfo_title_margin_startEnd">10dp</dimen>
-    <dimen name="noteInfo_title_marignTop">5dp</dimen>
-    <dimen name="noteInfo_title_textSize">30sp</dimen>
-
-    <dimen name="noteInfo_date_margin_startEnd">10dp</dimen>
-    <dimen name="noteInfo_date_textSize">20sp</dimen>
-    <dimen name="noteInfo_date_marginTop">15dp</dimen>
+    <dimen name="textInput_minHeight">100dp</dimen>
 </resources>

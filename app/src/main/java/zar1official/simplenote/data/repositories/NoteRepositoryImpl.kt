@@ -1,13 +1,13 @@
-package zar1official.simplenote.model.repositories
+package zar1official.simplenote.data.repositories
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import zar1official.simplenote.model.database.NoteDao
-import zar1official.simplenote.model.models.Note
-import zar1official.simplenote.model.network.service.NoteService
-import zar1official.simplenote.model.repositories.base.NoteRepository
-import zar1official.simplenote.utils.mappers.NetworkNoteMapper
-import zar1official.simplenote.utils.mappers.NoteMapper
+import zar1official.simplenote.data.database.NoteDao
+import zar1official.simplenote.data.mappers.NetworkNoteMapper
+import zar1official.simplenote.data.mappers.NoteMapper
+import zar1official.simplenote.data.network.service.NoteService
+import zar1official.simplenote.domain.Note
+import zar1official.simplenote.domain.NoteRepository
 
 class NoteRepositoryImpl(
     private val noteDao: NoteDao,
@@ -31,6 +31,12 @@ class NoteRepositoryImpl(
     override suspend fun deleteNotes(noteModel: Note) {
         noteDao.deleteNote(mapper.mapToEntity(noteModel))
     }
+
+    override suspend fun findNotes(noteModel: Note): Note? =
+        when (val result = noteDao.findNoteById(noteModel.id)) {
+            null -> null
+            else -> mapper.mapFromEntity(result)
+        }
 
     override fun getNotes(): Flow<List<Note>> {
         val data = noteDao.getAllNotes()

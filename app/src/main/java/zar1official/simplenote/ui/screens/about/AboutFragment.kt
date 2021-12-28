@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import zar1official.simplenote.databinding.FragmentAboutBinding
 
+
 class AboutFragment : Fragment() {
 
     private var _binding: FragmentAboutBinding? = null

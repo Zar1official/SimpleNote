@@ -1,4 +1,4 @@
-package zar1official.simplenote.model.network.entities
+package zar1official.simplenote.data.network.entities
 
 import com.google.gson.annotations.SerializedName
 

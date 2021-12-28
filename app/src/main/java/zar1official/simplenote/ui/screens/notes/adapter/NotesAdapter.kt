@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import zar1official.simplenote.R
 import zar1official.simplenote.databinding.NoteItemBinding
-import zar1official.simplenote.model.models.Note
+import zar1official.simplenote.domain.Note
 import zar1official.simplenote.utils.other.DateTimeUtils
 
 

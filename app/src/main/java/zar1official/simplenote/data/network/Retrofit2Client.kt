@@ -1,4 +1,4 @@
-package zar1official.simplenote.model.network
+package zar1official.simplenote.data.network
 
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
