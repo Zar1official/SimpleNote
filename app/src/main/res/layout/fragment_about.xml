@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <FrameLayout
@@ -10,26 +10,25 @@
         android:background="@color/background_main"
         tools:context=".ui.screens.about.AboutFragment">
 
+        <TextView
+            android:id="@+id/about_text"
+            style="@style/Theme.SimpleNote.AboutText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_description" />
+
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout2"
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/about_toolbar"
                 android:layout_width="match_parent"
-                android:theme="@style/Theme.SimpleNote.Toolbar"
                 android:layout_height="?attr/actionBarSize"
+                android:theme="@style/Theme.SimpleNote.Toolbar"
                 app:title="@string/about" />
 
         </com.google.android.material.appbar.AppBarLayout>
-
-        <TextView
-            android:id="@+id/about_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center_horizontal"
-            android:text="@string/about_description" />
     </FrameLayout>
 </layout>

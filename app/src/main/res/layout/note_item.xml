@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/noteItem_cardMargin"
-        android:background="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="@dimen/noteItem_cardCornerRadius"
-        app:cardElevation="@dimen/noteItem_cardElevation">
+        style="@style/Theme.SimpleNote.NoteCardView">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,31 +14,22 @@
 
             <TextView
                 android:id="@+id/note_title"
+                style="@style/Theme.SimpleNote.NoteItemTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/noteItem_marginStart"
-                android:textSize="@dimen/noteItem_titleTextSize"
-                android:theme="@style/noteTitle" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/note_content"
+                style="@style/Theme.SimpleNote.NoteItemContent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/noteItem_marginStart"
-                android:ellipsize="end"
-                android:maxLines="4"
-                android:textSize="@dimen/noteItem_textSize"
-                android:textStyle="italic" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/note_date"
+                style="@style/Theme.SimpleNote.NoteItemDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/noteItem_marginStart"
-                android:layout_marginTop="@dimen/noteItem_date_marginTop"
-                android:singleLine="true"
-                android:textSize="@dimen/noteItem_textSize"
-                android:textStyle="italic" />
+                android:layout_marginTop="@dimen/noteItem_date_marginTop" />
 
         </LinearLayout>
 

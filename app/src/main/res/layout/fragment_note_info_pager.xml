@@ -7,17 +7,19 @@
         android:layout_height="match_parent"
         tools:context=".ui.screens.notes.info.NoteInfoPagerFragment">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/noteInfoViewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:theme="@style/Theme.SimpleNote.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </FrameLayout>
 </layout>

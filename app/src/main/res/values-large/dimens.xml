@@ -12,5 +12,8 @@
 
     <!--   creating note-->
     <dimen name="creatingNote_layoutMargin">20dp</dimen>
-    <dimen name="textInput_minHeight">500dp</dimen>
+    <dimen name="textInput_minHeight">400dp</dimen>
+    <dimen name="about_textSize">25sp</dimen>
+    <dimen name="creatingNote_titleTextSize">24sp</dimen>
+    <dimen name="creatingNote_contentTextSize">22sp</dimen>
 </resources>

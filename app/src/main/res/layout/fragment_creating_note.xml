@@ -8,10 +8,9 @@
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout2"
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -39,39 +38,31 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Theme.SimpleNote.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/creatingNote_layoutMargin">
+                    android:layout_marginBottom="@dimen/creatingNote_layoutMargin">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/title_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusable="true"
-                        android:gravity="bottom"
-                        android:hint="@string/header_hint"
-                        android:imeOptions="actionNext"
-                        android:inputType="text"
                         android:nextFocusDown="@id/text_input"
                         android:text="@={viewmodel.noteTitle}"
-                        android:theme="@style/noteTitle" />
+                        style="@style/Theme.SimpleNote.TitleEditText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Theme.SimpleNote.TextInputLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/creatingNote_layoutMargin">
+                    android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/text_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusable="true"
-                        android:gravity="start"
-                        android:minHeight="@dimen/textInput_minHeight"
-                        android:text="@={viewmodel.noteText}">
+                        android:text="@={viewmodel.noteText}"
+                        style="@style/Theme.SimpleNote.ContentEditText">
 
                     </com.google.android.material.textfield.TextInputEditText>
 

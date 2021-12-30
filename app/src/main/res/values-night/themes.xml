@@ -18,8 +18,71 @@
         <item name="colorControlNormal">@color/white</item>
     </style>
 
-    <style name="noteTitle">
+    <style name="Theme.SimpleNote.ProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="Theme.SimpleNote.AboutText" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/about_textSize</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="Theme.SimpleNote.EditText">
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="Theme.SimpleNote.ContentEditText" parent="Theme.SimpleNote.EditText">
+        <item name="android:textSize">@dimen/creatingNote_contentTextSize</item>
+        <item name="android:minHeight">@dimen/textInput_minHeight</item>
+        <item name="android:gravity">start</item>
+    </style>
+
+    <style name="Theme.SimpleNote.TitleEditText" parent="Theme.SimpleNote.EditText">
+        <item name="android:textSize">@dimen/creatingNote_titleTextSize</item>
+        <item name="android:gravity">bottom</item>
         <item name="android:textStyle">bold</item>
         <item name="android:singleLine">true</item>
+        <item name="android:hint">@string/header_hint</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:inputType">text</item>
     </style>
+
+    <style name="Theme.SimpleNote.NoteItem" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_marginStart">@dimen/noteItem_marginStart</item>
+    </style>
+
+    <style name="Theme.SimpleNote.NoteItemTitle" parent="Theme.SimpleNote.NoteItem">
+        <item name="android:textSize">@dimen/noteItem_titleTextSize</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.SimpleNote.NoteItemContent" parent="Theme.SimpleNote.NoteItem">
+        <item name="android:textSize">@dimen/noteItem_textSize</item>
+        <item name="android:maxLines">4</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="Theme.SimpleNote.NoteItemDate" parent="Theme.SimpleNote.NoteItem">
+        <item name="android:textSize">@dimen/noteItem_textSize</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:layout_marginTop">@dimen/noteItem_date_marginTop</item>
+    </style>
+
+    <style name="Theme.SimpleNote.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_marginStart">@dimen/creatingNote_layoutMargin</item>
+        <item name="android:layout_marginTop">@dimen/creatingNote_layoutMargin</item>
+        <item name="android:layout_marginEnd">@dimen/creatingNote_layoutMargin</item>
+    </style>
+
+    <style name="Theme.SimpleNote.NoteCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_margin">@dimen/noteItem_cardMargin</item>
+        <item name="android:background">?android:selectableItemBackground</item>
+        <item name="cardCornerRadius">@dimen/noteItem_cardCornerRadius</item>
+        <item name="cardElevation">@dimen/noteItem_cardElevation</item>
+    </style>
+
 </resources>

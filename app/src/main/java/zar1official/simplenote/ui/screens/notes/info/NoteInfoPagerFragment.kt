@@ -39,11 +39,13 @@ class NoteInfoPagerFragment : Fragment() {
         _binding = FragmentNoteInfoPagerBinding.inflate(inflater, container, false).apply {
             adapter = NotesInfoPagerAdapter(this@NoteInfoPagerFragment)
             noteInfoViewPager.adapter = adapter
+            viewModel.allNotes.observeOnce(this@NoteInfoPagerFragment) { notes ->
+                adapter.updateData(notes)
+                noteInfoViewPager.setCurrentItem(position, false)
+                hideProgressBar()
+            }
             viewModel.allNotes.observe(this@NoteInfoPagerFragment) { notes ->
                 adapter.updateData(notes)
-            }
-            viewModel.allNotes.observeOnce(this@NoteInfoPagerFragment) { notes ->
-                noteInfoViewPager.setCurrentItem(position, false)
             }
         }
         return binding.root
@@ -71,6 +73,10 @@ class NoteInfoPagerFragment : Fragment() {
                     putInt(POSITION_PARAM, position)
                 }
             }
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBar.visibility = View.GONE
     }
 
     override fun onDestroyView() {

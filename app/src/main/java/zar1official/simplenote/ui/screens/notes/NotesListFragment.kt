@@ -17,6 +17,7 @@ import zar1official.simplenote.databinding.FragmentNotesListBinding
 import zar1official.simplenote.domain.NoteRepository
 import zar1official.simplenote.ui.screens.notes.adapter.NotesAdapter
 import zar1official.simplenote.ui.screens.notes.info.NoteInfoPagerFragment
+import zar1official.simplenote.utils.other.observeOnce
 import zar1official.simplenote.utils.other.showSnackBar
 
 class NotesListFragment : Fragment() {
@@ -32,7 +33,7 @@ class NotesListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNotesListBinding.inflate(inflater, container, false).apply {
-            viewModel.allNotes.observe(this@NotesListFragment) { data ->
+            viewModel.allNotes.observeOnce(this@NotesListFragment) { data ->
                 when (data) {
                     null -> {
                         view?.showSnackBar(R.string.load_notes_failed)
