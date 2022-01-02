@@ -9,10 +9,10 @@ import zar1official.simplenote.domain.NoteRepository
 import zar1official.simplenote.utils.other.SingleLiveEvent
 
 class ConfirmCreatingViewModel(
-    private val repository: NoteRepository,
+    private val repository: NoteRepository
 ) : ViewModel() {
 
-    val onInsertSuccessfully = SingleLiveEvent<Unit>()
+    val onInsertSuccessfully = SingleLiveEvent<Note>()
 
     private fun insertNote(note: Note) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -25,8 +25,9 @@ class ConfirmCreatingViewModel(
 
     fun onAttemptInsertNote(note: Note) {
         insertNote(note)
-        onInsertSuccessfully.call()
+        onInsertSuccessfully.value = note
     }
+
 
     fun onAttemptCancel() {}
 }

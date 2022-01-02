@@ -2,6 +2,7 @@ package zar1official.simplenote.ui.screens.creating.dialog
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
@@ -33,8 +34,14 @@ class ConfirmCreatingDialog : DialogFragment() {
     }
 
     private fun subscribeViewModel() {
-        viewModel.onInsertSuccessfully.observe(this) {
+        viewModel.onInsertSuccessfully.observe(this) { data ->
             requireParentFragment().requireView().showSnackBar(R.string.successful_save)
+            activity?.sendBroadcast(Intent().apply {
+                action = ACTION
+                putExtra(TITLE_PARAM, data.title)
+                putExtra(TEXT_PARAM, data.text)
+                putExtra(DATE_PARAM, data.date)
+            })
         }
     }
 
@@ -66,6 +73,10 @@ class ConfirmCreatingDialog : DialogFragment() {
 
     companion object {
         private const val DATA_PARAM = "note"
+        private const val TITLE_PARAM = "title"
+        private const val TEXT_PARAM = "text"
+        private const val DATE_PARAM = "date"
+        private const val ACTION = "com.zar1official.simplenote.action_note_saved"
         const val TAG = "ConfirmCreatingDialog"
 
         @JvmStatic

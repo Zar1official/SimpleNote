@@ -33,14 +33,8 @@ class NoteRepositoryImpl(
     }
 
     override suspend fun findNotes(noteModel: Note): Note? =
-        when (val result = noteDao.findNoteById(noteModel.id)) {
-            null -> null
-            else -> mapper.mapFromEntity(result)
-        }
+        noteDao.findNoteById(noteModel.id)?.let { mapper.mapFromEntity(it) }
 
-    override fun getNotes(): Flow<List<Note>> {
-        val data = noteDao.getAllNotes()
-        return data.map { mapper.mapFromEntityList(it) }
-    }
-
+    override fun getNotes(): Flow<List<Note>> =
+        noteDao.getAllNotes().map { mapper.mapFromEntityList(it) }
 }
