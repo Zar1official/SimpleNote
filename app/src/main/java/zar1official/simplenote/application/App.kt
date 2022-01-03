@@ -1,25 +1,19 @@
 package zar1official.simplenote.application
 
 import android.app.Application
-import retrofit2.Retrofit
-import zar1official.simplenote.data.database.NoteDatabase
-import zar1official.simplenote.data.network.Retrofit2Client
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import zar1official.simplenote.di.appModule
+import zar1official.simplenote.di.dataModule
+import zar1official.simplenote.di.domainModule
 
 class App : Application() {
-    companion object {
-        lateinit var instance: App
-            private set
-    }
-
-    lateinit var db: NoteDatabase
-        private set
-    lateinit var retrofitClient: Retrofit
-        private set
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
-        db = NoteDatabase.getDatabase(this)
-        retrofitClient = Retrofit2Client.getInstance()
+        startKoin {
+            androidContext(this@App)
+            modules(listOf(appModule, domainModule, dataModule))
+        }
     }
 }

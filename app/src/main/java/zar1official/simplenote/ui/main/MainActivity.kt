@@ -1,9 +1,9 @@
 package zar1official.simplenote.ui.main
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import zar1official.simplenote.R
 import zar1official.simplenote.databinding.ActivityMainBinding
 import zar1official.simplenote.ui.screens.about.AboutFragment
@@ -12,23 +12,17 @@ import zar1official.simplenote.ui.screens.notes.NotesListFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModelFactory: MainViewModelFactory
-    private val viewModel: MainViewModel by viewModels { viewModelFactory }
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initVewModelFactory()
         subscribeViewModel()
         setNavigationListener()
 
         viewModel.onAttemptSetHome(savedInstanceState)
-    }
-
-    private fun initVewModelFactory() {
-        viewModelFactory = MainViewModelFactory()
     }
 
     private fun setNavigationListener() {

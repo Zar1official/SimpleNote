@@ -5,16 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import zar1official.simplenote.R
-import zar1official.simplenote.application.App
-import zar1official.simplenote.data.mappers.NetworkNoteMapper
-import zar1official.simplenote.data.mappers.NoteMapper
-import zar1official.simplenote.data.network.service.NoteService
-import zar1official.simplenote.data.repositories.NoteRepositoryImpl
 import zar1official.simplenote.databinding.FragmentNotesListBinding
-import zar1official.simplenote.domain.NoteRepository
 import zar1official.simplenote.ui.screens.notes.adapter.NotesAdapter
 import zar1official.simplenote.ui.screens.notes.info.NoteInfoPagerFragment
 import zar1official.simplenote.utils.other.observeOnce
@@ -24,8 +18,7 @@ class NotesListFragment : Fragment() {
 
     private var _binding: FragmentNotesListBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: NotesListViewModel by viewModels { NotesListViewModelFactory(repository) }
-    private lateinit var repository: NoteRepository
+    private val viewModel: NotesListViewModel by viewModel()
     private lateinit var noteAdapter: NotesAdapter
 
     override fun onCreateView(
@@ -56,17 +49,6 @@ class NotesListFragment : Fragment() {
             }
         }
         return binding.root
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initRepository()
-    }
-
-    private fun initRepository() {
-        val noteDao = App.instance.db.noteDao()
-        val noteService = App.instance.retrofitClient.create(NoteService::class.java)
-        repository = NoteRepositoryImpl(noteDao, noteService, NoteMapper(), NetworkNoteMapper())
     }
 
     companion object {

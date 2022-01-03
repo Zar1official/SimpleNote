@@ -13,7 +13,7 @@ import java.util.*
 
 class CreatingNoteViewModel(
     private val repository: NoteRepository,
-    currentNote: Note = Note()
+    currentNote: Note
 ) : ViewModel() {
     val noteTitle = MutableLiveData<String>()
     val noteText = MutableLiveData<String>()
@@ -56,7 +56,7 @@ class CreatingNoteViewModel(
         }
     }
 
-    private fun saveFields(note: Note) {
+    fun saveFields(note: Note) {
         noteTitle.value = note.title
         noteText.value = note.text
     }

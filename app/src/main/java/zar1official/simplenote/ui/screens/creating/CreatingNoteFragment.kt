@@ -5,30 +5,24 @@ import android.os.Bundle
 import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import zar1official.simplenote.R
-import zar1official.simplenote.application.App
-import zar1official.simplenote.data.mappers.NetworkNoteMapper
-import zar1official.simplenote.data.mappers.NoteMapper
-import zar1official.simplenote.data.network.service.NoteService
-import zar1official.simplenote.data.repositories.NoteRepositoryImpl
 import zar1official.simplenote.databinding.FragmentCreatingNoteBinding
 import zar1official.simplenote.domain.Note
-import zar1official.simplenote.domain.NoteRepository
 import zar1official.simplenote.ui.screens.creating.dialog.ConfirmCreatingDialog
+import zar1official.simplenote.ui.screens.creating.dialog.ConfirmCreatingViewModel
 import zar1official.simplenote.utils.other.showSnackBar
 
 class CreatingNoteFragment : Fragment() {
-    private var note: Note = Note()
-    private val viewModel: CreatingNoteViewModel by viewModels {
-        CreatingNoteViewModelFactory(
-            repository,
-            note
+    private val creatingViewModel: CreatingNoteViewModel by viewModel {
+        parametersOf(
+            arguments?.getParcelable(DATA_PARAM) ?: Note()
         )
     }
+    private val confirmCreatingViewModel: ConfirmCreatingViewModel by viewModel()
     private var _binding: FragmentCreatingNoteBinding? = null
     private val binding get() = _binding!!
-    private lateinit var repository: NoteRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +30,7 @@ class CreatingNoteFragment : Fragment() {
     ): View {
         _binding = FragmentCreatingNoteBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = this@CreatingNoteFragment
-            viewmodel = viewModel
+            viewmodel = creatingViewModel
         }
         setToolbarMenuItemListener()
         return binding.root
@@ -54,48 +48,29 @@ class CreatingNoteFragment : Fragment() {
             }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        getArgs()
-        initRepository()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeViewModel()
     }
 
-    private fun getArgs() {
-        arguments?.let {
-            note = it.getParcelable(DATA_PARAM) ?: note
-        }
-    }
-
-    private fun initRepository() {
-        val noteDao = App.instance.db.noteDao()
-        val noteService = App.instance.retrofitClient.create(NoteService::class.java)
-        repository = NoteRepositoryImpl(noteDao, noteService, NoteMapper(), NetworkNoteMapper())
-    }
-
-
     private fun subscribeViewModel() {
-        viewModel.onSuccessfulAttemptSave.observe(this) { data ->
+        creatingViewModel.onSuccessfulAttemptSave.observe(this) { data ->
             showConfirmDialog(data)
         }
 
-        viewModel.onFailAttemptSave.observe(this) {
+        creatingViewModel.onFailAttemptSave.observe(this) {
             view?.showSnackBar(R.string.saved_empty_content)
         }
 
-        viewModel.onSuccessfulAttemptShare.observe(this) { note ->
+        creatingViewModel.onSuccessfulAttemptShare.observe(this) { note ->
             shareNote(note)
         }
 
-        viewModel.onFailAttemptShare.observe(this) {
+        creatingViewModel.onFailAttemptShare.observe(this) {
             view?.showSnackBar(R.string.share_failed)
         }
 
-        viewModel.onFailAttemptDownload.observe(this) {
+        creatingViewModel.onFailAttemptDownload.observe(this) {
             view?.showSnackBar(R.string.download_failed)
         }
     }
@@ -115,9 +90,9 @@ class CreatingNoteFragment : Fragment() {
     private fun setToolbarMenuItemListener() {
         binding.creatingNoteToolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.share -> viewModel.onAttemptShareNote()
-                R.id.save -> viewModel.onAttemptSaveNote()
-                R.id.download -> viewModel.onAttemptDownloadNote()
+                R.id.share -> creatingViewModel.onAttemptShareNote()
+                R.id.save -> creatingViewModel.onAttemptSaveNote()
+                R.id.download -> creatingViewModel.onAttemptDownloadNote()
             }
             true
         }
