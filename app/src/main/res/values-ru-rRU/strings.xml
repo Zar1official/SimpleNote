@@ -19,4 +19,8 @@
     <string name="note_item_description">"Заметка под названием "</string>
     <string name="download_option">Скачать</string>
     <string name="download_failed">Ошибка загрузки!</string>
+    <string name="playing_failed">Невозможно воспроизвести запись, она пустая</string>
+    <string name="failed_music_delete">Невозможно удалить запись, она пустая</string>
+    <string name="successful_music_delete">Запись успешно удалена</string>
+    <string name="successful_music_upload">Запись успешно загружена</string>
 </resources>

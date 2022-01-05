@@ -1,8 +1,11 @@
 package zar1official.simplenote.ui.screens.creating
 
 import android.content.Intent
+import android.media.AudioAttributes
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,6 +26,19 @@ class CreatingNoteFragment : Fragment() {
     private val confirmCreatingViewModel: ConfirmCreatingViewModel by viewModel()
     private var _binding: FragmentCreatingNoteBinding? = null
     private val binding get() = _binding!!
+    private val launcher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        creatingViewModel.onAttemptSaveAudioUri(uri)
+    }
+    private val mediaPlayer: MediaPlayer by lazy {
+        MediaPlayer().apply {
+            setAudioAttributes(
+                AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    .setUsage(AudioAttributes.USAGE_MEDIA)
+                    .build()
+            )
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +54,8 @@ class CreatingNoteFragment : Fragment() {
 
     companion object {
         private const val DATA_PARAM = "note_info"
+        private const val TEXT_MIMETYPE = "text/plain"
+        private const val MUSIC_MIMETYPE = "audio/mpeg"
 
         @JvmStatic
         fun newInstance(note: Note): CreatingNoteFragment =
@@ -73,11 +91,49 @@ class CreatingNoteFragment : Fragment() {
         creatingViewModel.onFailAttemptDownload.observe(this) {
             view?.showSnackBar(R.string.download_failed)
         }
+
+        creatingViewModel.noteAudio.observe(this) { uri ->
+            if (uri != null) {
+                view?.showSnackBar(R.string.successful_music_upload)
+                mediaPlayer.run {
+                    reset()
+                    setDataSource(requireContext(), uri)
+                    creatingViewModel.playerState.value = false
+                    prepareAsync()
+                }
+            }
+        }
+
+        creatingViewModel.onSuccessfulAttemptPlayMusic.observe(this) { uri ->
+            if (!mediaPlayer.isPlaying) {
+                mediaPlayer.start()
+            } else {
+                mediaPlayer.pause()
+            }
+            creatingViewModel.onAttemptChangePlayerState()
+        }
+
+        creatingViewModel.onSuccessfulAttemptUploadMusic.observe(this) {
+            launcher.launch(MUSIC_MIMETYPE)
+        }
+
+        creatingViewModel.onUnsuccessfulAttemptPlayMusic.observe(this) {
+            view?.showSnackBar(R.string.playing_failed)
+        }
+
+        creatingViewModel.onSuccessfulAttemptDeleteMusic.observe(this) {
+            mediaPlayer.stop()
+            view?.showSnackBar(R.string.successful_music_delete)
+        }
+
+        creatingViewModel.onFailAttemptDeleteMusic.observe(this) {
+            view?.showSnackBar(R.string.failed_music_delete)
+        }
     }
 
     private fun shareNote(note: Note) {
         startActivity(Intent(Intent.ACTION_SEND).apply {
-            type = "plain/text"
+            type = TEXT_MIMETYPE
             putExtra(Intent.EXTRA_TEXT, "${note.title}\n${note.text}")
         })
     }
@@ -101,5 +157,10 @@ class CreatingNoteFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.reset()
     }
 }

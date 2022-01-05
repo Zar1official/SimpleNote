@@ -12,5 +12,6 @@ data class NoteItem(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @ColumnInfo(name = "note_title") val title: String,
     @ColumnInfo(name = "note_text") val text: String,
-    @ColumnInfo(name = "note_date") val date: Long
+    @ColumnInfo(name = "note_date") val date: Long,
+    @ColumnInfo(name = "note_audio") val audioUri: String?
 ) : Parcelable

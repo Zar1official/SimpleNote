@@ -9,6 +9,10 @@
     <string name="save_failed">Save failed!</string>
     <string name="share_failed">Share failed! Note is empty.</string>
     <string name="load_notes_failed">Loading notes failed!</string>
+    <string name="playing_failed">Playing failed, recording is empty.</string>
+    <string name="failed_music_delete">Deleting failed, recording is empty</string>
+    <string name="successful_music_delete">Recording deleted successfully</string>
+    <string name="successful_music_upload">Recording uploaded successfully</string>
 
     <!--    top menu-->
     <string name="share_option">Share</string>

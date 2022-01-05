@@ -73,9 +73,7 @@
     </style>
 
     <style name="Theme.SimpleNote.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:layout_marginStart">@dimen/creatingNote_layoutMargin</item>
-        <item name="android:layout_marginTop">@dimen/creatingNote_layoutMargin</item>
-        <item name="android:layout_marginEnd">@dimen/creatingNote_layoutMargin</item>
+        <item name="android:layout_margin">@dimen/creatingNote_layoutMargin</item>
     </style>
 
     <style name="Theme.SimpleNote.NoteCardView" parent="Widget.MaterialComponents.CardView">
@@ -83,6 +81,14 @@
         <item name="android:background">?android:selectableItemBackground</item>
         <item name="cardCornerRadius">@dimen/noteItem_cardCornerRadius</item>
         <item name="cardElevation">@dimen/noteItem_cardElevation</item>
+    </style>
+
+    <style name="Theme.SimpleNote.MediaPlayerLayout">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/dark_gray</item>
+        <item name="android:layout_marginTop">@dimen/creatingNote_layoutMargin</item>
+        <item name="android:layout_marginStart">@dimen/creatingNote_layoutMargin</item>
+        <item name="android:layout_marginEnd">@dimen/creatingNote_layoutMargin</item>
     </style>
 
 </resources>
