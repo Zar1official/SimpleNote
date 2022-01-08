@@ -1,5 +1,6 @@
 package zar1official.simplenote.data.database.entities
 
+import android.net.Uri
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -13,5 +14,5 @@ data class NoteItem(
     @ColumnInfo(name = "note_title") val title: String,
     @ColumnInfo(name = "note_text") val text: String,
     @ColumnInfo(name = "note_date") val date: Long,
-    @ColumnInfo(name = "note_audio") val audioUri: String?
+    @ColumnInfo(name = "note_audio") val audioUri: Uri?
 ) : Parcelable

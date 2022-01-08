@@ -18,10 +18,6 @@
         <item name="colorControlNormal">@color/white</item>
     </style>
 
-    <style name="Theme.SimpleNote.ProgressBar" parent="Widget.AppCompat.ProgressBar">
-        <item name="android:layout_gravity">center</item>
-    </style>
-
     <style name="Theme.SimpleNote.AboutText" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">@dimen/about_textSize</item>
         <item name="android:gravity">center_horizontal</item>
