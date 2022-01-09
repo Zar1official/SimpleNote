@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import zar1official.simplenote.R
 import zar1official.simplenote.databinding.NoteItemBinding
-import zar1official.simplenote.domain.Note
+import zar1official.simplenote.domain.models.Note
 import zar1official.simplenote.ui.base.adapter.Adapter
 import zar1official.simplenote.ui.base.adapter.AdapterEventListener
 import zar1official.simplenote.utils.other.DateTimeUtils

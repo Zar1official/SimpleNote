@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import zar1official.simplenote.R
 import zar1official.simplenote.databinding.FragmentNotesListBinding
-import zar1official.simplenote.domain.Note
+import zar1official.simplenote.domain.models.Note
 import zar1official.simplenote.ui.base.adapter.AdapterEventListener
 import zar1official.simplenote.ui.base.view.Subscriber
 import zar1official.simplenote.ui.screens.notes.adapter.NoteTouchHelper

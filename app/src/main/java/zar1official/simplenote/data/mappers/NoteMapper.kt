@@ -2,7 +2,7 @@ package zar1official.simplenote.data.mappers
 
 import zar1official.simplenote.data.database.entities.NoteItem
 import zar1official.simplenote.data.mappers.base.EntityMapper
-import zar1official.simplenote.domain.Note
+import zar1official.simplenote.domain.models.Note
 
 class NoteMapper : EntityMapper<NoteItem, Note> {
     override fun mapFromEntity(entity: NoteItem): Note =

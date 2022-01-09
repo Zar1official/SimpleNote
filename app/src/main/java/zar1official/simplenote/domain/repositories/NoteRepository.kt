@@ -1,6 +1,7 @@
-package zar1official.simplenote.domain
+package zar1official.simplenote.domain.repositories
 
 import kotlinx.coroutines.flow.Flow
+import zar1official.simplenote.domain.models.Note
 
 interface NoteRepository {
     suspend fun loadNote(): Note

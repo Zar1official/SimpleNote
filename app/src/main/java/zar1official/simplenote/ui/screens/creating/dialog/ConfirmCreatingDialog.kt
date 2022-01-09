@@ -7,7 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import zar1official.simplenote.R
-import zar1official.simplenote.domain.Note
+import zar1official.simplenote.domain.models.Note
 import zar1official.simplenote.ui.base.view.Subscriber
 
 class ConfirmCreatingDialog : DialogFragment(), Subscriber {

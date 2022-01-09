@@ -6,8 +6,8 @@ import zar1official.simplenote.data.database.NoteDao
 import zar1official.simplenote.data.mappers.NetworkNoteMapper
 import zar1official.simplenote.data.mappers.NoteMapper
 import zar1official.simplenote.data.network.service.NoteService
-import zar1official.simplenote.domain.Note
-import zar1official.simplenote.domain.NoteRepository
+import zar1official.simplenote.domain.models.Note
+import zar1official.simplenote.domain.repositories.NoteRepository
 
 class NoteRepositoryImpl(
     private val noteDao: NoteDao,

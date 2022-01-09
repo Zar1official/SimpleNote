@@ -13,15 +13,25 @@ val appModule = module {
     }
 
     viewModel {
-        ConfirmCreatingViewModel(repository = get())
+        ConfirmCreatingViewModel(
+            findNoteByIdUseCase = get(),
+            updateNoteUseCase = get(),
+            saveNoteUseCase = get()
+        )
     }
 
     viewModel {
-        NotesListViewModel(repository = get())
+        NotesListViewModel(
+            getAllNotesUseCase = get(),
+            removeNoteUseCase = get()
+        )
     }
 
     viewModel { params ->
-        CreatingNoteViewModel(repository = get(), currentNote = params.get())
+        CreatingNoteViewModel(
+            loadNoteUseCase = get(),
+            currentNote = params.get()
+        )
     }
 }
 

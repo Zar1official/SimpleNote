@@ -1,8 +1,9 @@
-package zar1official.simplenote.domain
+package zar1official.simplenote.domain.models
 
 import android.net.Uri
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import zar1official.simplenote.domain.models.base.DomainModel
 
 @Parcelize
 data class Note(

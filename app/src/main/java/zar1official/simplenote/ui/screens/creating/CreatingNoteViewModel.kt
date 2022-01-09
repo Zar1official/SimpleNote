@@ -4,16 +4,14 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import zar1official.simplenote.domain.Note
-import zar1official.simplenote.domain.NoteRepository
+import zar1official.simplenote.domain.models.Note
+import zar1official.simplenote.domain.usecases.LoadNoteUseCase
 import zar1official.simplenote.utils.other.SingleLiveEvent
 import java.util.*
 
 class CreatingNoteViewModel(
-    private val repository: NoteRepository,
+    private val loadNoteUseCase: LoadNoteUseCase,
     currentNote: Note
 ) : ViewModel() {
     val noteTitle = MutableLiveData<String>()
@@ -74,16 +72,10 @@ class CreatingNoteViewModel(
 
     fun onAttemptDownloadNote() {
         viewModelScope.launch {
-            runCatching {
-                withContext(Dispatchers.IO) {
-                    repository.loadNote()
-                }
-            }.onSuccess {
-                saveFields(it)
-            }.onFailure {
-                onFailAttemptDownload.call()
+            when (val result = loadNoteUseCase()) {
+                null -> onFailAttemptDownload.call()
+                else -> saveFields(result)
             }
-
         }
     }
 

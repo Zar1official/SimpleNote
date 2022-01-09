@@ -1,7 +1,7 @@
 package zar1official.simplenote.ui.screens.notes.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import zar1official.simplenote.domain.Note
+import zar1official.simplenote.domain.models.Note
 
 class NotesDiffUtil(private val oldList: List<Note>, private val newList: List<Note>) :
     DiffUtil.Callback() {
