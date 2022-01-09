@@ -3,17 +3,22 @@ package zar1official.simplenote.ui.screens.notes.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import zar1official.simplenote.R
 import zar1official.simplenote.databinding.NoteItemBinding
 import zar1official.simplenote.domain.Note
+import zar1official.simplenote.ui.base.adapter.Adapter
+import zar1official.simplenote.ui.base.adapter.AdapterEventListener
 import zar1official.simplenote.utils.other.DateTimeUtils
 
 
-class NotesAdapter(notes: List<Note>, private val clickListener: (Int) -> Unit) :
-    RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
+class NotesAdapter(
+    private val eventListener: AdapterEventListener,
+) :
+    RecyclerView.Adapter<NotesAdapter.NoteViewHolder>(), Adapter {
 
-    val notesList = notes as ArrayList<Note>
+    val notesList = ArrayList<Note>()
 
     inner class NoteViewHolder(noteView: View, clickAt: (Int) -> Unit) :
         RecyclerView.ViewHolder(noteView) {
@@ -42,7 +47,7 @@ class NotesAdapter(notes: List<Note>, private val clickListener: (Int) -> Unit) 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false)
         return NoteViewHolder(view) {
-            clickListener(it)
+            eventListener.onClick(it)
         }
     }
 
@@ -51,4 +56,16 @@ class NotesAdapter(notes: List<Note>, private val clickListener: (Int) -> Unit) 
     }
 
     override fun getItemCount(): Int = notesList.size
+
+    fun onSwipe(position: Int) {
+        eventListener.onSwipe(notesList[position])
+    }
+
+    override fun updateData(newList: List<Note>) {
+        val diffCallback = NotesDiffUtil(notesList, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        notesList.clear()
+        notesList.addAll(newList)
+        diffResult.dispatchUpdatesTo(this)
+    }
 }

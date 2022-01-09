@@ -8,22 +8,24 @@ import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import zar1official.simplenote.R
 import zar1official.simplenote.databinding.FragmentCreatingNoteBinding
 import zar1official.simplenote.domain.Note
+import zar1official.simplenote.ui.base.view.Subscriber
 import zar1official.simplenote.ui.screens.creating.dialog.ConfirmCreatingDialog
 import zar1official.simplenote.ui.screens.creating.dialog.ConfirmCreatingViewModel
 import zar1official.simplenote.utils.other.showSnackBar
 
-class CreatingNoteFragment : Fragment() {
+class CreatingNoteFragment : Fragment(), Subscriber {
     private val creatingViewModel: CreatingNoteViewModel by viewModel {
         parametersOf(
             arguments?.getParcelable(DATA_PARAM) ?: Note()
         )
     }
-    private val confirmCreatingViewModel: ConfirmCreatingViewModel by viewModel()
+    private val confirmCreatingViewModel: ConfirmCreatingViewModel by sharedViewModel()
     private var _binding: FragmentCreatingNoteBinding? = null
     private val binding get() = _binding!!
     private val launcher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
@@ -49,6 +51,7 @@ class CreatingNoteFragment : Fragment() {
             viewmodel = creatingViewModel
         }
         setToolbarMenuItemListener()
+        subscribeViewModel()
         return binding.root
     }
 
@@ -56,6 +59,10 @@ class CreatingNoteFragment : Fragment() {
         private const val DATA_PARAM = "note_info"
         private const val TEXT_MIMETYPE = "text/plain"
         private const val MUSIC_MIMETYPE = "audio/mpeg"
+        private const val TITLE_PARAM = "title"
+        private const val TEXT_PARAM = "text"
+        private const val DATE_PARAM = "date"
+        private const val ACTION = "com.zar1official.simplenote.action_note_saved"
 
         @JvmStatic
         fun newInstance(note: Note): CreatingNoteFragment =
@@ -66,12 +73,7 @@ class CreatingNoteFragment : Fragment() {
             }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        subscribeViewModel()
-    }
-
-    private fun subscribeViewModel() {
+    override fun subscribeViewModel() {
         creatingViewModel.onSuccessfulAttemptSave.observe(this) { data ->
             showConfirmDialog(data)
         }
@@ -94,7 +96,6 @@ class CreatingNoteFragment : Fragment() {
 
         creatingViewModel.noteAudio.observe(this) { uri ->
             if (uri != null) {
-                view?.showSnackBar(R.string.successful_music_upload)
                 mediaPlayer.run {
                     reset()
                     setDataSource(requireContext(), uri)
@@ -123,11 +124,21 @@ class CreatingNoteFragment : Fragment() {
 
         creatingViewModel.onSuccessfulAttemptDeleteMusic.observe(this) {
             mediaPlayer.stop()
-            view?.showSnackBar(R.string.successful_music_delete)
+            view?.showSnackBar(R.string.successful_note_delete)
         }
 
         creatingViewModel.onFailAttemptDeleteMusic.observe(this) {
             view?.showSnackBar(R.string.failed_music_delete)
+        }
+
+        confirmCreatingViewModel.onInsertSuccessfully.observe(this) { data ->
+            view?.showSnackBar(R.string.successful_save)
+            activity?.sendBroadcast(Intent().apply {
+                action = ACTION
+                putExtra(TITLE_PARAM, data.title)
+                putExtra(TEXT_PARAM, data.text)
+                putExtra(DATE_PARAM, data.date)
+            })
         }
     }
 

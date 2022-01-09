@@ -1,9 +1,9 @@
-package zar1official.simplenote.ui.screens.notes.info.adapter
+package zar1official.simplenote.ui.screens.notes.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import zar1official.simplenote.domain.Note
 
-class PagerDiffUtil(private val oldList: List<Note>, private val newList: List<Note>) :
+class NotesDiffUtil(private val oldList: List<Note>, private val newList: List<Note>) :
     DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
 

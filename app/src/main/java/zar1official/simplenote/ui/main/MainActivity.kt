@@ -6,11 +6,12 @@ import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import zar1official.simplenote.R
 import zar1official.simplenote.databinding.ActivityMainBinding
+import zar1official.simplenote.ui.base.view.Subscriber
 import zar1official.simplenote.ui.screens.about.AboutFragment
 import zar1official.simplenote.ui.screens.creating.CreatingNoteFragment
 import zar1official.simplenote.ui.screens.notes.NotesListFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Subscriber {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModel()
 
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun subscribeViewModel() {
+    override fun subscribeViewModel() {
         viewModel.onOpenNewNote.observe(this) {
             openNewNote()
         }

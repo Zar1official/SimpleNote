@@ -5,17 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import zar1official.simplenote.databinding.FragmentNoteInfoPagerBinding
+import zar1official.simplenote.ui.base.view.Subscriber
 import zar1official.simplenote.ui.screens.notes.NotesListViewModel
 import zar1official.simplenote.ui.screens.notes.info.adapter.NotesInfoPagerAdapter
+import zar1official.simplenote.ui.screens.notes.info.adapter.NotesPageTransformer
 import zar1official.simplenote.utils.other.observeOnce
 
-class NoteInfoPagerFragment : Fragment() {
+class NoteInfoPagerFragment : Fragment(), Subscriber {
     private var _binding: FragmentNoteInfoPagerBinding? = null
     private val binding get() = _binding!!
     private var position: Int = 0
-    private val viewModel: NotesListViewModel by viewModel()
+    private val viewModel: NotesListViewModel by sharedViewModel()
     private lateinit var adapter: NotesInfoPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,15 +32,9 @@ class NoteInfoPagerFragment : Fragment() {
         _binding = FragmentNoteInfoPagerBinding.inflate(inflater, container, false).apply {
             adapter = NotesInfoPagerAdapter(this@NoteInfoPagerFragment)
             noteInfoViewPager.adapter = adapter
-            viewModel.allNotes.observeOnce(this@NoteInfoPagerFragment) { notes ->
-                adapter.updateData(notes)
-                noteInfoViewPager.setCurrentItem(position, false)
-                hideProgressBar()
-            }
-            viewModel.allNotes.observe(this@NoteInfoPagerFragment) { notes ->
-                adapter.updateData(notes)
-            }
+            noteInfoViewPager.setPageTransformer(NotesPageTransformer())
         }
+        subscribeViewModel()
         return binding.root
     }
 
@@ -67,6 +63,17 @@ class NoteInfoPagerFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun subscribeViewModel() {
+        viewModel.allNotes.observeOnce(this@NoteInfoPagerFragment) { notes ->
+            adapter.updateData(notes)
+            binding.noteInfoViewPager.setCurrentItem(position, false)
+            hideProgressBar()
+        }
+        viewModel.allNotes.observe(this@NoteInfoPagerFragment) { notes ->
+            adapter.updateData(notes)
+        }
     }
 
 }

@@ -12,7 +12,7 @@
     <string name="playing_failed">Playing failed, recording is empty.</string>
     <string name="failed_music_delete">Deleting failed, recording is empty</string>
     <string name="successful_music_delete">Recording deleted successfully</string>
-    <string name="successful_music_upload">Recording uploaded successfully</string>
+    <string name="successful_note_delete">Note deleted successfully</string>
 
     <!--    top menu-->
     <string name="share_option">Share</string>

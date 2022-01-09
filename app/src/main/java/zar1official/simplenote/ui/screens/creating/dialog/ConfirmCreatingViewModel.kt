@@ -20,12 +20,12 @@ class ConfirmCreatingViewModel(
                 null -> repository.saveNotes(note)
                 else -> repository.updateNotes(note)
             }
+            onInsertSuccessfully.postValue(note)
         }
     }
 
     fun onAttemptInsertNote(note: Note) {
         insertNote(note)
-        onInsertSuccessfully.value = note
     }
 
     fun onAttemptCancel() {}

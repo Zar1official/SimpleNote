@@ -2,16 +2,15 @@ package zar1official.simplenote.ui.screens.creating.dialog
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import zar1official.simplenote.R
 import zar1official.simplenote.domain.Note
-import zar1official.simplenote.utils.other.showSnackBar
+import zar1official.simplenote.ui.base.view.Subscriber
 
-class ConfirmCreatingDialog : DialogFragment() {
+class ConfirmCreatingDialog : DialogFragment(), Subscriber {
     private val viewModel: ConfirmCreatingViewModel by sharedViewModel()
     private var note: Note = Note()
 
@@ -21,16 +20,7 @@ class ConfirmCreatingDialog : DialogFragment() {
         subscribeViewModel()
     }
 
-    private fun subscribeViewModel() {
-        viewModel.onInsertSuccessfully.observe(this) { data ->
-            requireParentFragment().requireView().showSnackBar(R.string.successful_save)
-            activity?.sendBroadcast(Intent().apply {
-                action = ACTION
-                putExtra(TITLE_PARAM, data.title)
-                putExtra(TEXT_PARAM, data.text)
-                putExtra(DATE_PARAM, data.date)
-            })
-        }
+    override fun subscribeViewModel() {
     }
 
     private fun getArgs() {
@@ -55,10 +45,6 @@ class ConfirmCreatingDialog : DialogFragment() {
 
     companion object {
         private const val DATA_PARAM = "note"
-        private const val TITLE_PARAM = "title"
-        private const val TEXT_PARAM = "text"
-        private const val DATE_PARAM = "date"
-        private const val ACTION = "com.zar1official.simplenote.action_note_saved"
         const val TAG = "ConfirmCreatingDialog"
 
         @JvmStatic

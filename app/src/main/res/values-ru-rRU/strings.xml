@@ -22,5 +22,5 @@
     <string name="playing_failed">Невозможно воспроизвести запись, она пустая</string>
     <string name="failed_music_delete">Невозможно удалить запись, она пустая</string>
     <string name="successful_music_delete">Запись успешно удалена</string>
-    <string name="successful_music_upload">Запись успешно загружена</string>
+    <string name="successful_note_delete">Заметка успешно удалена</string>
 </resources>
