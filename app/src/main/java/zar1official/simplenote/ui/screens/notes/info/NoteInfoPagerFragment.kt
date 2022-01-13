@@ -16,14 +16,10 @@ import zar1official.simplenote.utils.other.observeOnce
 class NoteInfoPagerFragment : Fragment(), Subscriber {
     private var _binding: FragmentNoteInfoPagerBinding? = null
     private val binding get() = _binding!!
-    private var position: Int = 0
+    private val position: Int by lazy { arguments?.getInt(POSITION_PARAM) ?: 0 }
+    private val filter: String? by lazy { arguments?.getString(FILTER_PARAM) }
     private val viewModel: NotesListViewModel by sharedViewModel()
     private lateinit var adapter: NotesInfoPagerAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        getArgs()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,20 +34,16 @@ class NoteInfoPagerFragment : Fragment(), Subscriber {
         return binding.root
     }
 
-    private fun getArgs() {
-        arguments?.let {
-            position = it.getInt(POSITION_PARAM)
-        }
-    }
-
     companion object {
         private const val POSITION_PARAM = "position"
+        private const val FILTER_PARAM = "filter"
 
         @JvmStatic
-        fun newInstance(position: Int) =
+        fun newInstance(position: Int, filter: String?) =
             NoteInfoPagerFragment().apply {
                 arguments = Bundle().apply {
                     putInt(POSITION_PARAM, position)
+                    putString(FILTER_PARAM, filter)
                 }
             }
     }
@@ -66,13 +58,27 @@ class NoteInfoPagerFragment : Fragment(), Subscriber {
     }
 
     override fun subscribeViewModel() {
-        viewModel.allNotes.observeOnce(this@NoteInfoPagerFragment) { notes ->
-            adapter.updateData(notes)
+
+        viewModel.allNotes.observe(this) { data ->
+            viewModel.onAttemptUpdateNotes(data)
+        }
+
+        viewModel.currentNoteList.observe(this) {
+            viewModel.onAttemptUpdateFilter(filter)
+        }
+
+        viewModel.noteFilter.observe(this) {
+            viewModel.onAttemptUpdateFilteredList()
+        }
+
+        viewModel.currentFilteredNoteList.observeOnce(this) { data ->
+            adapter.updateData(data)
             binding.noteInfoViewPager.setCurrentItem(position, false)
             hideProgressBar()
         }
-        viewModel.allNotes.observe(this@NoteInfoPagerFragment) { notes ->
-            adapter.updateData(notes)
+
+        viewModel.currentFilteredNoteList.observe(this) { data ->
+            adapter.updateData(data)
         }
     }
 

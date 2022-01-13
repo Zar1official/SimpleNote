@@ -35,9 +35,11 @@ val domainModule = module {
         RemoveNoteUseCase(repository = get())
     }
 
-    factory<GetAllNotesUseCase> {
-        GetAllNotesUseCase(repository = get())
+    factory<GetAllNotesLiveDataUseCase> {
+        GetAllNotesLiveDataUseCase(repository = get())
     }
 
-
+    factory<GetAllNotesFlowUseCase> {
+        GetAllNotesFlowUseCase(repository = get())
+    }
 }

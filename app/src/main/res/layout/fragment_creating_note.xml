@@ -78,6 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> viewmodel.onAttemptUploadMusic()}"
+                        android:contentDescription="@string/upload_description"
                         android:src="@drawable/ic_upload_music" />
 
                     <androidx.appcompat.widget.AppCompatImageButton
@@ -85,6 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> viewmodel.onAttemptPlayMusic()}"
+                        android:contentDescription="@{viewmodel.playerState ? @string/stop_description : @string/play_description}"
                         android:src="@{viewmodel.playerState ?  @drawable/ic_stop : @drawable/ic_play}" />
 
                     <androidx.appcompat.widget.AppCompatImageButton
@@ -92,6 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> viewmodel.onAttemptDeleteMusic()}"
+                        android:contentDescription="@string/delete_recording_description"
                         android:src="@drawable/ic_delete" />
 
                 </LinearLayout>

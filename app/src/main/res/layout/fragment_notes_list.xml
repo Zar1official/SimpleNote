@@ -33,7 +33,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/Theme.SimpleNote.Toolbar"
-                app:title="@string/notes" />
+                app:title="@string/notes">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:defaultQueryHint="@string/search_hint" />
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 

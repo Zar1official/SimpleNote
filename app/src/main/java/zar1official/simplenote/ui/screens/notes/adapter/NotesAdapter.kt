@@ -32,7 +32,7 @@ class NotesAdapter(
         private val binding = NoteItemBinding.bind(noteView)
 
         fun bindNote(note: Note) = with(binding) {
-            note.run {
+            note.apply {
                 noteTitle.text = title
                 noteContent.text = text
                 noteDate.text = DateTimeUtils.millisToDateTime(note.date)

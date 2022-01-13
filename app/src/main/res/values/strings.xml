@@ -5,14 +5,15 @@
 
     <!--    messages-->
     <string name="successful_save">Saved successfully!</string>
-    <string name="saved_empty_content">Save failed! Content is empty.</string>
+    <string name="saved_empty_content">Save failed! Content is empty</string>
     <string name="save_failed">Save failed!</string>
-    <string name="share_failed">Share failed! Note is empty.</string>
+    <string name="share_failed">Share failed! Note is empty</string>
     <string name="load_notes_failed">Loading notes failed!</string>
-    <string name="playing_failed">Playing failed, recording is empty.</string>
+    <string name="playing_failed">Playing failed, recording is empty</string>
     <string name="failed_music_delete">Deleting failed, recording is empty</string>
     <string name="successful_music_delete">Recording deleted successfully</string>
     <string name="successful_note_delete">Note deleted successfully</string>
+    <string name="download_failed">Download failed!</string>
 
     <!--    top menu-->
     <string name="share_option">Share</string>
@@ -35,6 +36,12 @@
 
     <!--    content description-->
     <string name="note_item_description">"Note with title "</string>
-    <string name="download_failed">Download failed!</string>
+    <string name="play_description">Play recording</string>
+    <string name="stop_description">Stop recording</string>
+    <string name="upload_description">Upload recording</string>
+    <string name="delete_recording_description">Delete recording</string>
+
+    <!--    search view-->
+    <string name="search_hint">Search notes</string>
 </resources>
 

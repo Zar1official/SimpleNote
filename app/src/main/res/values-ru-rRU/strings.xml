@@ -23,4 +23,9 @@
     <string name="failed_music_delete">Невозможно удалить запись, она пустая</string>
     <string name="successful_music_delete">Запись успешно удалена</string>
     <string name="successful_note_delete">Заметка успешно удалена</string>
+    <string name="search_hint">Искать заметки</string>
+    <string name="play_description">Слушать запись</string>
+    <string name="stop_description">Остановить запись</string>
+    <string name="upload_description">Загрузить запиись</string>
+    <string name="delete_recording_description">Удалить запись</string>
 </resources>

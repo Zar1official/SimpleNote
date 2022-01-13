@@ -96,7 +96,7 @@ class CreatingNoteFragment : Fragment(), Subscriber {
 
         creatingViewModel.noteAudio.observe(this) { uri ->
             if (uri != null) {
-                mediaPlayer.run {
+                mediaPlayer.apply {
                     reset()
                     setDataSource(requireContext(), uri)
                     creatingViewModel.playerState.value = false

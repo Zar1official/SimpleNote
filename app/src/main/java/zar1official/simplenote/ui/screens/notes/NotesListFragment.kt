@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -41,7 +42,7 @@ class NotesListFragment : Fragment(), Subscriber {
                 }
             })
 
-            notesRcView.run {
+            notesRcView.apply {
                 layoutManager =
                     StaggeredGridLayoutManager(
                         SPAN_COUNT,
@@ -50,6 +51,16 @@ class NotesListFragment : Fragment(), Subscriber {
                 adapter = noteAdapter
                 ItemTouchHelper(NoteTouchHelper(noteAdapter)).attachToRecyclerView(this)
             }
+
+            searchNotes.setOnQueryTextListener(object :
+                SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean = false
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    viewModel.onAttemptUpdateFilter(newText)
+                    return true
+                }
+            })
         }
         subscribeViewModel()
         return binding.root
@@ -78,9 +89,9 @@ class NotesListFragment : Fragment(), Subscriber {
             view?.showSnackBar(R.string.successful_note_delete)
         }
 
-        viewModel.onOpenNoteSuccessfully.observeOnce(this) { position ->
+        viewModel.onOpenNoteSuccessfully.observeOnce(this) { data ->
             parentFragmentManager.beginTransaction().replace(
-                R.id.fragment_wrapper, NoteInfoPagerFragment.newInstance(position)
+                R.id.fragment_wrapper, NoteInfoPagerFragment.newInstance(data.first, data.second)
             ).addToBackStack(FRAGMENT_TAG).commit()
         }
 
@@ -89,6 +100,18 @@ class NotesListFragment : Fragment(), Subscriber {
         }
 
         viewModel.allNotes.observe(this) { data ->
+            viewModel.onAttemptUpdateNotes(data)
+        }
+
+        viewModel.currentNoteList.observe(this) { data ->
+            viewModel.onAttemptUpdateFilteredList()
+        }
+
+        viewModel.noteFilter.observe(this) {
+            viewModel.onAttemptUpdateFilteredList()
+        }
+
+        viewModel.currentFilteredNoteList.observe(this) { data ->
             noteAdapter.updateData(data)
         }
     }

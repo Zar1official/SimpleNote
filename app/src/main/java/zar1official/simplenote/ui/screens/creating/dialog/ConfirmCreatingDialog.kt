@@ -8,26 +8,10 @@ import androidx.fragment.app.DialogFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import zar1official.simplenote.R
 import zar1official.simplenote.domain.models.Note
-import zar1official.simplenote.ui.base.view.Subscriber
 
-class ConfirmCreatingDialog : DialogFragment(), Subscriber {
+class ConfirmCreatingDialog : DialogFragment() {
     private val viewModel: ConfirmCreatingViewModel by sharedViewModel()
-    private var note: Note = Note()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        getArgs()
-        subscribeViewModel()
-    }
-
-    override fun subscribeViewModel() {
-    }
-
-    private fun getArgs() {
-        arguments?.let {
-            note = it.getParcelable(DATA_PARAM) ?: note
-        }
-    }
+    private val note: Note by lazy { arguments?.getParcelable(DATA_PARAM) ?: Note() }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
