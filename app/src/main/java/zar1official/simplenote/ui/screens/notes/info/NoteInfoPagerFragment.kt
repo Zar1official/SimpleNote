@@ -19,14 +19,13 @@ class NoteInfoPagerFragment : Fragment(), Subscriber {
     private val position: Int by lazy { arguments?.getInt(POSITION_PARAM) ?: 0 }
     private val filter: String? by lazy { arguments?.getString(FILTER_PARAM) }
     private val viewModel: NotesListViewModel by sharedViewModel()
-    private lateinit var adapter: NotesInfoPagerAdapter
+    private val adapter: NotesInfoPagerAdapter by lazy { NotesInfoPagerAdapter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNoteInfoPagerBinding.inflate(inflater, container, false).apply {
-            adapter = NotesInfoPagerAdapter(this@NoteInfoPagerFragment)
             noteInfoViewPager.adapter = adapter
             noteInfoViewPager.setPageTransformer(NotesPageTransformer())
         }

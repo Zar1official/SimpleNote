@@ -14,6 +14,7 @@ import zar1official.simplenote.databinding.FragmentNotesListBinding
 import zar1official.simplenote.domain.models.Note
 import zar1official.simplenote.ui.base.adapter.AdapterEventListener
 import zar1official.simplenote.ui.base.view.Subscriber
+import zar1official.simplenote.ui.screens.notes.adapter.NoteItemAnimator
 import zar1official.simplenote.ui.screens.notes.adapter.NoteTouchHelper
 import zar1official.simplenote.ui.screens.notes.adapter.NotesAdapter
 import zar1official.simplenote.ui.screens.notes.info.NoteInfoPagerFragment
@@ -25,22 +26,23 @@ class NotesListFragment : Fragment(), Subscriber {
     private var _binding: FragmentNotesListBinding? = null
     private val binding get() = _binding!!
     private val viewModel: NotesListViewModel by viewModel()
-    private lateinit var noteAdapter: NotesAdapter
+    private val noteAdapter: NotesAdapter by lazy {
+        NotesAdapter(object : AdapterEventListener {
+            override fun onClick(position: Int) {
+                viewModel.onAttemptOpenNote(position)
+            }
+
+            override fun onSwipe(note: Note) {
+                viewModel.onAttemptRemoveNote(note)
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNotesListBinding.inflate(inflater, container, false).apply {
-            noteAdapter = NotesAdapter(object : AdapterEventListener {
-                override fun onClick(position: Int) {
-                    viewModel.onAttemptOpenNote(position)
-                }
-
-                override fun onSwipe(note: Note) {
-                    viewModel.onAttemptRemoveNote(note)
-                }
-            })
 
             notesRcView.apply {
                 layoutManager =
@@ -49,6 +51,7 @@ class NotesListFragment : Fragment(), Subscriber {
                         StaggeredGridLayoutManager.VERTICAL
                     )
                 adapter = noteAdapter
+                itemAnimator = NoteItemAnimator()
                 ItemTouchHelper(NoteTouchHelper(noteAdapter)).attachToRecyclerView(this)
             }
 
