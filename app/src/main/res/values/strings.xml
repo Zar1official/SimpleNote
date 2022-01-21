@@ -26,7 +26,7 @@
     <string name="about">About</string>
 
     <!--    info-->
-    <string name="about_description" translatable="false">SimpleNote 1.0\nCopyright © 2021 zar1official</string>
+    <string name="about_description" translatable="false"><![CDATA[<b>SimpleNote 1.0</b><div>Copyright © 2021 zar1official</div>]]></string>
 
     <!--    dialogs-->
     <string name="confirm_creating_title">Are you sure?</string>
