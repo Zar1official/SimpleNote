@@ -80,9 +80,10 @@ class CreatingNoteViewModel(
     }
 
     fun onAttemptPlayMusic() {
-        when (noteAudio.value) {
-            null -> onUnsuccessfulAttemptPlayMusic.call()
-            else -> onSuccessfulAttemptPlayMusic.value = noteAudio.value
+        if (noteAudio.value == null) {
+            onUnsuccessfulAttemptPlayMusic.call()
+        } else {
+            onSuccessfulAttemptPlayMusic.value = noteAudio.value
         }
     }
 

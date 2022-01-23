@@ -49,12 +49,12 @@ class NotesListViewModel(
     }
 
     fun onAttemptUpdateFilteredList() {
-        _currentFilteredNoteList.value = when (noteFilter.value) {
-            null -> _currentNoteList.value
-            else -> _currentNoteList.value?.filter { note ->
-                note.title.contains(noteFilter.value!!) || note.text.contains(
-                    noteFilter.value!!
-                )
+        val filter = noteFilter.value
+        if (filter == null) {
+            _currentFilteredNoteList.value = _currentNoteList.value
+        } else {
+            _currentFilteredNoteList.value = _currentNoteList.value?.filter { note ->
+                note.title.contains(filter) || note.text.contains(filter)
             }
         }
     }
