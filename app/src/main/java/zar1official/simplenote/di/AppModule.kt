@@ -4,6 +4,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import zar1official.simplenote.ui.main.MainViewModel
 import zar1official.simplenote.ui.screens.about.AboutViewModel
+import zar1official.simplenote.ui.screens.about.cords.CordsViewModel
 import zar1official.simplenote.ui.screens.about.webview.WebViewFragmentViewModel
 import zar1official.simplenote.ui.screens.creating.CreatingNoteViewModel
 import zar1official.simplenote.ui.screens.creating.dialog.ConfirmCreatingViewModel
@@ -42,6 +43,10 @@ val appModule = module {
 
     viewModel {
         WebViewFragmentViewModel()
+    }
+
+    viewModel {
+        CordsViewModel()
     }
 }
 

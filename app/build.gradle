@@ -36,10 +36,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    apply plugin: 'com.android.application'
 }
 
 dependencies {
-    implementation 'androidx.work:work-runtime-ktx:2.5.0'
     def room_version = "2.3.0"
     def lifecycle_version = "2.4.0"
     def koin_version = '3.1.3'
@@ -71,6 +72,8 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
+    implementation 'androidx.work:work-runtime-ktx:2.5.0'
 
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
