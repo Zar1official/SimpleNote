@@ -14,6 +14,7 @@
     <string name="successful_music_delete">Recording deleted successfully</string>
     <string name="successful_note_delete">Note deleted successfully</string>
     <string name="download_failed">Download failed!</string>
+    <string name="show_location_failed">Showing location failed</string>
 
     <!--    top menu-->
     <string name="share_option">Share</string>

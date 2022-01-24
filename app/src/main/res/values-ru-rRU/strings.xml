@@ -28,4 +28,5 @@
     <string name="stop_description">Остановить запись</string>
     <string name="upload_description">Загрузить запиись</string>
     <string name="delete_recording_description">Удалить запись</string>
+    <string name="show_location_failed">Показать геолокацию не удалось</string>
 </resources>

@@ -12,6 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import zar1official.simplenote.R
 import zar1official.simplenote.databinding.FragmentAboutBinding
 import zar1official.simplenote.ui.base.view.Subscriber
+import zar1official.simplenote.ui.screens.about.cords.CordsFragment
 import zar1official.simplenote.ui.screens.about.webview.WebViewFragment
 
 
@@ -56,13 +57,24 @@ class AboutFragment : Fragment(), Subscriber {
     }
 
     private fun startAnimation() = with(binding) {
-        val imageButtonFinishX = imageButton.x
-        val imageButtonStartX = imageButtonFinishX - TRANSLATION
-        val imageButtonAnimator = ObjectAnimator.ofFloat(
-            imageButton,
+        val githubButtonFinishX = githubButton.x
+        val githubButtonStartX = githubButtonFinishX - TRANSLATION
+        val githubButtonAnimator = ObjectAnimator.ofFloat(
+            githubButton,
             PROPERTY_NAME_X,
-            imageButtonStartX,
-            imageButtonFinishX
+            githubButtonStartX,
+            githubButtonFinishX
+        ).apply {
+            interpolator = OvershootInterpolator()
+        }
+
+        val locationButtonFinishX = locationButton.x
+        val locationButtonStartX = locationButtonFinishX - TRANSLATION
+        val locationButtonAnimator = ObjectAnimator.ofFloat(
+            locationButton,
+            PROPERTY_NAME_X,
+            locationButtonStartX,
+            locationButtonFinishX
         ).apply {
             interpolator = OvershootInterpolator()
         }
@@ -79,7 +91,7 @@ class AboutFragment : Fragment(), Subscriber {
         }
 
         AnimatorSet().run {
-            play(imageButtonAnimator).with(aboutTextAnimator)
+            play(githubButtonAnimator).with(aboutTextAnimator).with(locationButtonAnimator)
             duration = ANIM_DURATION
             start()
         }
@@ -87,8 +99,16 @@ class AboutFragment : Fragment(), Subscriber {
 
     override fun subscribeViewModel() {
         viewModel.onAttemptOpenWebViewSuccessfully.observe(this) {
-            parentFragmentManager.beginTransaction().addToBackStack(TAG)
-                .replace(R.id.fragment_wrapper, WebViewFragment.newInstance()).commit()
+            switchScreen(WebViewFragment())
         }
+
+        viewModel.onAttemptOpenLocationSuccessfully.observe(this) {
+            switchScreen(CordsFragment())
+        }
+    }
+
+    private fun switchScreen(fragment: Fragment) {
+        parentFragmentManager.beginTransaction().addToBackStack(TAG)
+            .replace(R.id.fragment_wrapper, fragment).commit()
     }
 }
