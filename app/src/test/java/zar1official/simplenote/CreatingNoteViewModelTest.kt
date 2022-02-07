@@ -7,12 +7,18 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.kotlin.mock
+import zar1official.simplenote.domain.models.Note
+import zar1official.simplenote.domain.repositories.NoteRepository
+import zar1official.simplenote.domain.usecases.LoadNoteUseCase
 import zar1official.simplenote.ui.screens.creating.CreatingNoteViewModel
 
 @RunWith(JUnit4::class)
 class CreatingNoteViewModelTest {
 
     private lateinit var viewModel: CreatingNoteViewModel
+    private lateinit var repository: NoteRepository
+    private lateinit var loadNoteUseCase: LoadNoteUseCase
 
     @Rule
     @JvmField
@@ -20,13 +26,14 @@ class CreatingNoteViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = CreatingNoteViewModel()
+        repository = mock()
+        loadNoteUseCase = LoadNoteUseCase(repository)
+        viewModel = CreatingNoteViewModel(loadNoteUseCase, Note())
     }
 
     @Test
-    fun onAttemptSaveNoteSuccessfully() {
-        viewModel.noteTitle.value = "title"
-        viewModel.noteText.value = "text"
+    fun onAttemptSaveNoteSuccessfullyTest() {
+        viewModel.saveFields(Note("title", "text"))
         var successfulAttempt = false
 
         viewModel.onAttemptSaveNote()
@@ -38,23 +45,22 @@ class CreatingNoteViewModelTest {
     }
 
     @Test
-    fun onAttemptSaveNoteFailed() {
-        viewModel.noteTitle.value = "title"
-        viewModel.noteText.value = ""
-        var unsuccessfulAttempt = false
-
-        viewModel.onAttemptSaveNote()
-        viewModel.onFailAttemptSave.observeForever {
-            unsuccessfulAttempt = true
+    fun onAttemptSaveNoteFailedTest() {
+        val badNotes = listOf(Note(), Note(title = "title"), Note(text = "text"))
+        badNotes.forEach { note ->
+            var unsuccessfulAttempt = false
+            viewModel.saveFields(note)
+            viewModel.onAttemptSaveNote()
+            viewModel.onFailAttemptSave.observeForever {
+                unsuccessfulAttempt = true
+            }
+            assertTrue(unsuccessfulAttempt)
         }
-
-        assertTrue(unsuccessfulAttempt)
     }
 
     @Test
-    fun onAttemptShareNoteSuccessfully() {
-        viewModel.noteTitle.value = "title"
-        viewModel.noteText.value = "text"
+    fun onAttemptShareNoteSuccessfullyTest() {
+        viewModel.saveFields(Note("title", "text"))
         var successfulAttempt = false
 
         viewModel.onAttemptShareNote()
@@ -66,17 +72,74 @@ class CreatingNoteViewModelTest {
     }
 
     @Test
-    fun onAttemptShareNoteFailed() {
-        viewModel.noteTitle.value = "title"
-        viewModel.noteText.value = ""
+    fun onAttemptShareNoteFailedTest() {
+        val badNotes = listOf(Note(), Note(title = "title"), Note(text = "text"))
+        badNotes.forEach { note ->
+            var unsuccessfulAttempt = false
+            viewModel.saveFields(note)
+            viewModel.onAttemptShareNote()
+            viewModel.onFailAttemptShare.observeForever {
+                unsuccessfulAttempt = true
+            }
+            assertTrue(unsuccessfulAttempt)
+        }
+    }
+
+    @Test
+    fun onAttemptPlayMusicSuccessfullyTest() {
+        viewModel.saveFields(Note(audioUri = mock()))
+        var successfulAttempt = false
+
+        viewModel.onAttemptPlayMusic()
+        viewModel.onSuccessfulAttemptPlayMusic.observeForever {
+            successfulAttempt = true
+        }
+        assertTrue(successfulAttempt)
+    }
+
+    @Test
+    fun onAttemptPlayMusicFailedTest() {
+        viewModel.saveFields(Note(audioUri = null))
         var unsuccessfulAttempt = false
 
-        viewModel.onAttemptShareNote()
-        viewModel.onFailAttemptShare.observeForever {
+        viewModel.onAttemptPlayMusic()
+        viewModel.onUnsuccessfulAttemptPlayMusic.observeForever {
             unsuccessfulAttempt = true
         }
-
         assertTrue(unsuccessfulAttempt)
     }
 
+    @Test
+    fun onAttemptDeleteMusicSuccessfullyTest() {
+        viewModel.saveFields(Note(audioUri = mock()))
+        var successfulAttempt = false
+
+        viewModel.onAttemptDeleteMusic()
+        viewModel.onSuccessfulAttemptDeleteMusic.observeForever {
+            successfulAttempt = true
+        }
+        assertTrue(successfulAttempt)
+    }
+
+    @Test
+    fun onAttemptDeleteMusicFailedTest() {
+        viewModel.saveFields(Note(audioUri = null))
+        var unsuccessfulAttempt = false
+
+        viewModel.onAttemptDeleteMusic()
+        viewModel.onFailAttemptDeleteMusic.observeForever {
+            unsuccessfulAttempt = true
+        }
+        assertTrue(unsuccessfulAttempt)
+    }
+
+    @Test
+    fun onAttemptUploadMusicSuccessfullyTest() {
+        var successfulAttempt = false
+        viewModel.onAttemptUploadMusic()
+        viewModel.onSuccessfulAttemptUploadMusic.observeForever {
+            successfulAttempt = true
+        }
+        assertTrue(successfulAttempt)
+    }
 }

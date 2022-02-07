@@ -14,6 +14,7 @@
     <string name="successful_music_delete">Recording deleted successfully</string>
     <string name="successful_note_delete">Note deleted successfully</string>
     <string name="download_failed">Download failed!</string>
+    <string name="show_location_failed">Showing location failed</string>
 
     <!--    top menu-->
     <string name="share_option">Share</string>
@@ -26,7 +27,7 @@
     <string name="about">About</string>
 
     <!--    info-->
-    <string name="about_description" translatable="false">SimpleNote 1.0\nCopyright © 2021 zar1official</string>
+    <string name="about_description" translatable="false"><![CDATA[<b>SimpleNote 1.0</b><div>Copyright © 2021 zar1official</div>]]></string>
 
     <!--    dialogs-->
     <string name="confirm_creating_title">Are you sure?</string>
